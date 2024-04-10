@@ -6,8 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
-import { AuthService } from './shared/auth.service';
-import { AssignmentsService } from './shared/assignments.service';
+import { AuthService } from './services/auth/auth.service';
+import { AssignmentsService } from './services/assignment/assignments.service';
 
 @Component({
   selector: 'app-root',
@@ -25,17 +25,17 @@ export class AppComponent {
               private assignmentsService: AssignmentsService,
               private router:Router) {}
 
-  login() {
-    // on utilise le service d'autentification
-    // pour se connecter ou se déconnecter
-    if(!this.authService.loggedIn) {
-      this.authService.logIn();
-    } else {
-      this.authService.logOut();
-      // on navigue vers la page d'accueil
-      this.router.navigate(['/home']);
-    }
-  }
+  // login() {
+  //   // on utilise le service d'autentification
+  //   // pour se connecter ou se déconnecter
+  //   if(!this.authService.loggedIn) {
+  //     this.authService.logIn();
+  //   } else {
+  //     this.authService.logOut();
+  //     // on navigue vers la page d'accueil
+  //     this.router.navigate(['/home']);
+  //   }
+  // }
 
   genererDonneesDeTest() {
     // on utilise le service

@@ -1,24 +1,26 @@
 import { Injectable } from '@angular/core';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(private router: Router) { }
+
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
 
-  constructor() { }
-
-  // méthode pour connecter l'utilisateur
-  // Typiquement, il faudrait qu'elle accepte en paramètres
-  // un nom d'utilisateur et un mot de passe, que l'on vérifierait
-  // auprès d'un serveur...
-  logIn() {
+  logIn(token: string) {
+    // on stock le token dans le localStorage du header
+    localStorage.setItem('token', token)
+    this.router.navigateByUrl('/home')
     this.loggedIn = true;
   }
 
-  // méthode pour déconnecter l'utilisateur
   logOut() {
+    // on retire le token du localStorage du header
+    localStorage.removeItem('token')
+    this.router.navigateByUrl('/')
     this.loggedIn = false;
   }
 
