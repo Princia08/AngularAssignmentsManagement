@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Observable} from "rxjs";
-import {HttpClient} from "@angular/common/http";
-import {User} from "../../models/user.model";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { User } from "../../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,6 @@ export class UserService {
   url = this.urlBase + '/users'
 
   authentification(user: any): Observable<any> {
-    return this.http.post<User>(this.urlBase + "/login", user);
+    return this.http.post<User>(this.urlBase + "/users/login", user);
   }
 }

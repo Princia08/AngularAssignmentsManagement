@@ -23,7 +23,7 @@ export class AuthentificationComponent implements OnInit{
   constructor(private userService : UserService, private authService: AuthService) { }
 
   loader = true;
-  private _interval = interval(1500)
+  private _interval = interval(500)
   private sub = this._interval.subscribe(() => {
     this.loader = false;
   })
@@ -34,7 +34,9 @@ export class AuthentificationComponent implements OnInit{
   })
 
   errorMessage = ""
-  ngOnInit() {}
+  ngOnInit() {
+
+  }
 
   login() {
     this.userService.authentification(this.userForm.value).subscribe({
