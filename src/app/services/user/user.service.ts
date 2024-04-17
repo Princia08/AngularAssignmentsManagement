@@ -15,4 +15,8 @@ export class UserService {
   authentification(user: any): Observable<any> {
     return this.http.post<User>(this.urlBase + "/users/login", user);
   }
+
+  signup(user: any): Observable<any> {
+    return this.http.post<User>(this.urlBase + "/users", user);
+  }
 }
