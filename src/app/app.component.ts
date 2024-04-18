@@ -49,17 +49,6 @@ export class AppComponent implements OnInit {
     private observer: BreakpointObserver
   ) {}
 
-  // login() {
-  //   // on utilise le service d'autentification
-  //   // pour se connecter ou se déconnecter
-  //   if (!this.authService.loggedIn) {
-  //     this.authService.logIn();
-  //   } else {
-  //     this.authService.logOut();
-  //     // on navigue vers la page d'accueil
-  //     this.router.navigate(['/home']);
-  //   }
-  // }
 
   genererDonneesDeTest() {
     // on utilise le service
