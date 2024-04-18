@@ -6,13 +6,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { AssignmentsComponent } from './assignments/assignments.component';
-import { AuthService } from './shared/auth.service';
-import { AssignmentsService } from './shared/assignments.service';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ViewChild } from '@angular/core';
+import { AuthService } from './services/auth/auth.service';
+import { AssignmentsService } from './services/assignment/assignments.service';
 
 @Component({
   selector: 'app-root',

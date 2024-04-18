@@ -21,8 +21,13 @@
             ],
             "tsConfig": "tsconfig.app.json",
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+                "src/favicon.ico",
+                "src/assets",
+              {
+                "glob": "*.wasm",
+                "input": "node_modules/@rive-app/canvas-advanced/",
+                "output": "assets/rive/"
+              }
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",

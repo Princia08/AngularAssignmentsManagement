@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Assignment } from '../assignments/assignment.model';
+import { Assignment } from '../../assignments/assignment.model';
 import { Observable, forkJoin, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { LoggingService } from './logging.service';
+import { LoggingService } from '../../shared/log/logging.service';
 import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
-import { bdInitialAssignments } from './data';
+import { bdInitialAssignments } from '../../shared/data';
 
 @Injectable({
   providedIn: 'root'
