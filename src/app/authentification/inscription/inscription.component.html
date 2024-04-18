@@ -9,11 +9,20 @@
     <input class="input" type="date" placeholder="Date de naissance" formControlName="dateDeNaissance">
     <input class="input" type="email" placeholder="E-mail" formControlName="mail">
     <input class="input" type="password" placeholder="Mot de passe" formControlName="password">
-    <input class="input" type="text" placeholder="image" formControlName="image">
+<!--    <input class="input" type="text" placeholder="image" formControlName="image">-->
     <select formControlName="type" style="width: 96%;">
       <option value="0">Elève</option>
       <option value="1">Professeur</option>
     </select>
+    <input type="file" class="file-input" (change)="onFileSelected($event);" #fileUpload style="display: none">
+
+    <div class="inputFile">
+      {{ fileName || "Choisissez une image :" }}
+      <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+        <mat-icon>attach_file</mat-icon>
+      </button>
+    </div>
+
     <span class="signup"><a href="/authentification" >Déjà inscrit(e) ?</a></span>
     <p class="error">{{errorMessage}}</p>
     <button class="login-button" (click)="signup()" >S'inscrire</button>
