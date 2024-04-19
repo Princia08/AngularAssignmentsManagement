@@ -3,4 +3,9 @@ export class Assignment {
   nom!: string;
   dateDeRendu!: Date;
   rendu!: boolean;
+  file!: string;
+  idMatiere!: string;
+  idUser!: string;
+  remarque!: string;
+  note!: number;
 }

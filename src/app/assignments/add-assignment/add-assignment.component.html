@@ -1,4 +1,4 @@
-<h1>Ajout d'un assignment</h1>
+<h1>Ajout d'un assignment par {{ user.prenom }}</h1>
 <form
   ngForm
   #assignmentForm
@@ -8,7 +8,7 @@
   <mat-form-field>
     <input
       matInput
-      placeholder="Nom"
+      placeholder="Nom de l'assignment"
       required
       [(ngModel)]="nomAssignment"
       name="nom"
@@ -18,6 +18,7 @@
   <mat-form-field>
     <mat-label>Date de rendu</mat-label>
     <input
+      type="date"
       matInput
       [matDatepicker]="picker"
       [(ngModel)]="dateDeRendu"
@@ -26,6 +27,15 @@
     <mat-hint>dd/MM/YYYY</mat-hint>
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>matiere</mat-label>
+    <select matInput [(ngModel)]="matiere_id" name="matiere_id">
+      @for(mat of listeMatiere; track mat.nom) {
+      <option value="{{ mat._id }}">{{ mat.nom }}</option>
+      }
+    </select>
   </mat-form-field>
 
   <button
