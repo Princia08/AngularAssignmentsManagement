@@ -49,7 +49,6 @@ export class AppComponent implements OnInit {
     private observer: BreakpointObserver
   ) {}
 
-
   genererDonneesDeTest() {
     // on utilise le service
     /* VERSION NAIVE

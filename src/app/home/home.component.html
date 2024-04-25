@@ -3,7 +3,12 @@
     [mode]="isMobile ? 'over' : 'side'"
     [opened]="isMobile ? false : true"
   >
-    <button mat-icon-button aria-label="Menu icon" (click)="toggleMenu()">
+    <button
+      mat-icon-button
+      aria-label="Menu icon"
+      class="d-flex"
+      (click)="toggleMenu()"
+    >
       <mat-icon>menu</mat-icon>
     </button>
     <mat-nav-list>
@@ -16,14 +21,12 @@
       <a mat-list-item routerLink="add">
         <span class="entry">
           <mat-icon>add</mat-icon>
-          <span>@if(!isCollapsed){Nouveau assignement}</span>
+          <span>@if(!isCollapsed){Nouvel assignement}</span>
         </span>
       </a>
     </mat-nav-list>
   </mat-sidenav>
-  <mat-sidenav-content
-    [style.margin-left]="isSidebarOpen ? sidebarWidth : '100px'"
-  >
+  <mat-sidenav-content [style.margin-left]="isSidebarOpen ? '97px' : '251px'">
     <!-- Main content goes here -->
     <router-outlet></router-outlet>
   </mat-sidenav-content>

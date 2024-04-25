@@ -20,8 +20,14 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    canActivate: [homeGuard],
-    children: [{ path: 'add', component: AddAssignmentComponent }],
+    //canActivate: [homeGuard],
+    children: [
+      {
+        path: 'add',
+        component: AddAssignmentComponent,
+        data: { isSidebarOpen: true },
+      },
+    ],
   },
 
   { path: 'assignment/:id', component: AssignmentDetailComponent },
