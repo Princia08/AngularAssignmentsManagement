@@ -2,14 +2,14 @@
   <div class="heading">Inscrivez-vous !</div>
   <form [formGroup]="userForm">
 
-    <div style="display: flex; justify-content:space-between; width: 96%;">
+    <div style="display: flex; justify-content:space-between;">
       <input class="input" style="width: 40%; margin-right:2px" type="text" placeholder="Nom" formControlName="nom">
       <input class="input" style="width: 59%" type="text" placeholder="Prenom" formControlName="prenom">
     </div>
     <input class="input" type="date" placeholder="Date de naissance" formControlName="dateDeNaissance">
     <input class="input" type="email" placeholder="E-mail" formControlName="mail">
     <input class="input" type="password" placeholder="Mot de passe" formControlName="password">
-    <select formControlName="type" style="width: 96%;">
+    <select formControlName="type">
       <option value="0">Elève</option>
       <option value="1">Professeur</option>
     </select>
