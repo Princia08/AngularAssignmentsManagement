@@ -12,6 +12,8 @@ import { AuthService } from '../services/auth/auth.service';
 import { AssignmentsService } from '../services/assignment/assignments.service';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute } from '@angular/router';
+import {AsyncPipe} from "@angular/common";
+import {UserService} from "../services/user/user.service";
 
 @Component({
   selector: 'app-home',
@@ -26,6 +28,7 @@ import { ActivatedRoute } from '@angular/router';
     MatSidenavContent,
     RouterLink,
     RouterOutlet,
+    AsyncPipe,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
@@ -38,10 +41,12 @@ export class HomeComponent implements OnInit {
   isMobile = true;
   isCollapsed = true;
   isSidebarOpen = false;
+  isAdmin = false;
   sidebarWidth = '70px';
 
   constructor(
     private authService: AuthService,
+    private userService: UserService,
     private assignmentsService: AssignmentsService,
     private router: Router,
     private observer: BreakpointObserver,
@@ -67,6 +72,11 @@ export class HomeComponent implements OnInit {
         this.isMobile = false;
       }
     });
+
+    this.authService.isAdmin().then((result) => {
+      console.log('isAdmin', result)
+      this.isAdmin = result
+    })
   }
 
   toggleMenu() {

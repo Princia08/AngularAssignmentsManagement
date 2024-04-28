@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Router} from "@angular/router";
+import {UserService} from "../user/user.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userService: UserService) {
+  }
 
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
@@ -33,13 +35,16 @@ export class AuthService {
   // si on l'utilisait à la main dans un composant, on ferait:
   // this.authService.isAdmin().then(....) ou
   // admin = await this.authService.isAdmin()
-  isAdmin() {
-    const promesse = new Promise((resolve, reject) => {
+  isAdmin(): Promise<boolean> {
+    return new Promise((resolve, reject) => {
       // ici accès BD? Web Service ? etc...
-      resolve(this.loggedIn);
-      // pas de cas d'erreur ici, donc pas de reject
+      this.userService.getUser().subscribe({
+        next: (user) => {
+          resolve(user.type == 1 && this.loggedIn)
+        },
+        error: (err) => reject(err)
+      });
     });
-
-    return promesse;
   }
 }
+
