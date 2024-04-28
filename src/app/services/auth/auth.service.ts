@@ -40,7 +40,8 @@ export class AuthService {
       // ici accès BD? Web Service ? etc...
       this.userService.getUser().subscribe({
         next: (user) => {
-          resolve(user.type == 1 && this.loggedIn)
+          // resolve(user.isAdmin && this.loggedIn)
+          resolve(user.isAdmin)
         },
         error: (err) => reject(err)
       });
