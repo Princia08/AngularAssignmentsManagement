@@ -11,14 +11,11 @@ export class MatiereService {
 
   constructor(private http: HttpClient) {}
 
-  getMatiere() {
-    return fetch(this.uri)
-      .then((response) => response.json())
-      .then((data) => {
-        return data;
-      });
-  }
   getAllMatieres(): Observable<Matiere[]> {
     return this.http.get<Matiere[]>(this.uri);
+  }
+
+  addMatiere(matiere?: Matiere): Observable<Matiere> {
+    return this.http.post<Matiere>(this.uri, matiere);
   }
 }

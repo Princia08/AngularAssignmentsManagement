@@ -1,11 +1,8 @@
+import {User} from "./user.model";
+
 export class Matiere {
   _id?: string;
   nom!: string;
-  prof!: {
-    _id: string;
-    nom: string;
-    prenom: string;
-    image: string;
-  };
+  prof?: User;
   image!: string;
 }

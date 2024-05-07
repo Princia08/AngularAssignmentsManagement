@@ -1,0 +1,20 @@
+.input {
+  background: #e0e0e0;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 10px;
+  border-inline: 2px solid transparent;
+  font-size: medium;
+}
+.inputFile {
+  width: 52%;
+  background: #e0e0e0;
+  border: none;
+  padding: 4px 5px;
+  border-radius: 13px;
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-left: 24%;
+}

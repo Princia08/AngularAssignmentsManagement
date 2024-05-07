@@ -1,3 +1,84 @@
 <div class="container">
-    <p>user works!</p>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Prénom</th>
+      <th>Type</th>
+      <th>Statut</th>
+      <th>Action</th>
+    </tr>
+    </thead>
+    <tbody>
+      @for (user of listInactivatedUsers; track user.nom) {
+        <tr>
+          <td>{{ user.nom }}</td>
+          <td>{{ user.prenom }}</td>
+          <td>{{ user.type == 0 ? "Elève" : "Professeur" }}</td>
+          <td>{{ user.isActivate ? "activé" : "Non activé" }}</td>
+          <td>
+            <button (click)="user.type == 0 ? openPopupEleve(user) : openPopupProf(user)" type="button"
+                    class="btn btn-success btn-sm">Activer
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+  <h3 style="text-align: center; color:#00b65e;">{{ message }}</h3>
 </div>
+
+@if (user != null) {
+  <div class="modal" [ngStyle]="{'display':displayStyleEleve}"
+       style="background: rgba(65, 65, 65, 0.1); backdrop-filter: blur(3px);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: rgba(63,63,63,0.89);">
+        <div class="modal-body" style="text-align:center;">
+          <h3 class="modal-title" style="padding:5% 5%; text-align: center; color: white">Voulez-vous vraiment activer
+            l'utilisateur <span style="font-style: italic;">{{ user.nom }}</span> en tant qu'élève ?</h3>
+          <button style="color: white; margin-right: 4%" type="button" class="btn" (click)="closePopupEleve()">
+            Annuler
+          </button>
+          <button type="button" class="btn" style="background-color:#6f56dc; color: white" (click)="activerEleve()">
+            Activer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+@if (user != null) {
+  <div class="modal" [ngStyle]="{'display':displayStyleProf}"
+       style="background: rgba(65, 65, 65, 0.1); backdrop-filter: blur(3px);">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="background-color: rgba(63,63,63,0.89);">
+        <div class="modal-body" style="text-align:center;">
+          <div class="modal-title" style="padding:5% 5%; text-align: center;">
+            <h3><span style="color: white">Pour activer l'utilisateur
+              <span style="font-style: italic;">{{ user.nom }}</span>
+              en tant que prof (admin automatiquement), l'assigner à une matière :
+            </span></h3>
+
+            <input class="input" placeholder="Nom de la matière" [(ngModel)]="nomMatiere">
+            <input type="file" (change)="onFileSelected($event);" #fileUpload style="display: none">
+
+            <div class="inputFile">
+              {{ imageMatiere || "Choisissez une image :" }}
+              <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+                <mat-icon>attach_file</mat-icon>
+              </button>
+            </div>
+          </div>
+          <p style="color:#ff0000;">{{messagePopupProf}}</p>
+          <button style="color: white; margin-right: 4%" type="button" class="btn" (click)="closePopupProf()">
+            Annuler
+          </button>
+          <button type="button" class="btn" style="background-color:#6f56dc; color: white" (click)="activerProf()">
+            Activer
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}

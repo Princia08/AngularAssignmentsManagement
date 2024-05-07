@@ -7,4 +7,6 @@ export class User {
   motDePasse!: string;
   image!: string;
   type!: number;
+  isActivate!: boolean;
+  isAdmin!: boolean;
 }
