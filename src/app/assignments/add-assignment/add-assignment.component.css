@@ -1,5 +1,23 @@
 .form {
-  display:flex;
+  display: flex;
   flex-direction: column;
-  margin:5px;
+  margin: 5px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+button {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.mat-form-field.mat-form-field-appearance-outline.mat-form-field-outline {
+  color: green;
+}
+
+.mat-form-field.mat-form-field-appearance-outline.mat-focused.mat-form-field-outline {
+  color: blue;
 }

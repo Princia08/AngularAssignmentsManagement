@@ -6,7 +6,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
-import { AssignmentsService } from '../../shared/assignments.service';
+import { AssignmentsService } from '../../services/assignment/assignments.service';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
