@@ -41,6 +41,14 @@
         </span>
         </a>
       }
+      <a mat-list-item (click)="logout()">
+        <span class="entry">
+          <mat-icon>logout</mat-icon>
+          <span>@if (!isCollapsed) {
+            Déconnexion
+          }</span>
+        </span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [style.margin-left]="isSidebarOpen ? '97px' : '251px'">

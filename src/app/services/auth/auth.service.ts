@@ -15,8 +15,15 @@ export class AuthService {
   logIn(token: string) {
     // on stock le token dans le localStorage du header
     localStorage.setItem('token', token)
-    this.router.navigateByUrl('/home')
-    this.loggedIn = true;
+
+    this.userService.getUser().subscribe((user) => {
+      if(user.type == 0) {
+        this.router.navigateByUrl('/home/student')
+      }
+      else this.router.navigateByUrl('/home')
+      this.loggedIn = true;
+    })
+
   }
 
   logOut() {
