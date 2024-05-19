@@ -41,6 +41,14 @@
         </span>
         </a>
       }
+      <a mat-list-item routerLink="assignment">
+        <span class="entry">
+          <mat-icon>assignment</mat-icon>
+          <span>@if (!isCollapsed) {
+            Assignment
+          }</span>
+        </span>
+      </a>
       <a mat-list-item (click)="logout()">
         <span class="entry">
           <mat-icon>logout</mat-icon>

@@ -9,6 +9,7 @@ import { HomeComponent } from './home/home.component';
 import {UserComponent} from "./user/user.component";
 import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignment.component";
 import {StudentsComponent} from "./students/students.component";
+import {AssignmentsComponent} from "./assignments/assignments.component";
 
 
 export const routes: Routes = [
@@ -37,6 +38,11 @@ export const routes: Routes = [
       {
         path: 'add',
         component: AddAssignmentComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
+        path: 'assignment',
+        component: AssignmentsComponent,
         data: {isSidebarOpen: true}
       }
     ]
