@@ -1,0 +1,191 @@
+.container-fluid {
+  padding: 0 12%;
+}
+.card {
+  position: relative;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.card::before,
+.card::after {
+  position: absolute;
+  content: "";
+  width: 20%;
+  height: 20%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: bold;
+  background-color: #8a8cee;
+  transition: all 0.5s;
+}
+
+.card::before {
+  top: 0;
+  right: 0;
+  border-radius: 0 15px 0 100%;
+}
+
+.card::after {
+  bottom: 0;
+  left: 0;
+  border-radius: 0 100%  0 15px;
+}
+
+.card:hover::before,
+.card:hover:after {
+  width: 100%;
+  height: 100%;
+  border-radius: 15px;
+  transition: all 0.5s;
+}
+
+.card:hover:after {
+  content: attr(id);
+  color: white;
+  text-align: center;
+  line-height: 1.7rem;
+}
+
+.profile-img {
+  width:100%;
+  height:100%;
+  border-radius: 15px;
+}
+
+@keyframes typewriter {
+  from {
+    max-width: 0;
+    color: white;
+  }
+  to {
+    max-width: 100%;
+    color: rgb(102, 86, 163);
+  }
+}
+
+@keyframes reveal {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+.title h1 {
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: solid 0.5rem;
+  animation: typewriter 2s steps(30, end) 1s 1 normal both;
+  max-width: 0;
+  font-family: system-ui, sans-serif;
+  font-size: 70px;
+  line-height: 70px;
+}
+
+.title h1 span {
+  display: inline-block;
+}
+
+.text {
+  font-size: 23px;
+  margin-top: 5%;
+  font-family: "system-ui";
+}
+
+.info-user {
+  opacity: 0;
+  animation: reveal 2s ease-out 3.5s 1 forwards;
+  margin-top: 4%;
+}
+
+.details {
+  overflow: hidden;
+  max-height: 0;
+  animation: reveal 2s ease-out 4s 1 forwards;
+  margin-top: 25px;
+  font-family: "system-ui";
+}
+
+.details h4{
+  font-size: 17px;
+}
+
+.details h4 span {
+  font-weight: bold;
+  color: rgb(76, 65, 120);
+
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.card-assignment {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 0.75rem;
+  background-color: rgba(0, 36, 255, 0.08);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1),
+  0 2px 4px -2px rgba(0,0,0,.1);
+  opacity: 0;
+  animation: reveal 2s ease-out 4.5s 1 forwards;
+}
+
+.info {
+  border: none;
+  padding: 1.5rem;
+  text-align: center;
+}
+
+.title {
+  color: rgb(38 50 56);
+  letter-spacing: 0;
+  line-height: 1.375;
+  font-weight: 600;
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  font-family: "system-ui";
+}
+
+.footer {
+  padding: 0.75rem;
+  border: 1px solid rgb(236 239 241);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: rgba(0, 140, 255, 0.082);
+}
+.action {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  border: none;
+  outline: none;
+  box-shadow: 0 4px 6px -1px rgba(137, 139, 236,.4),0 2px 4px -2px rgba(137, 139, 236,.4);
+  color: rgb(255 255 255);
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: .75rem;
+  padding: 0.75rem 1.5rem;
+  background-color: rgb(137, 139, 236);
+  border-radius: 0.5rem;
+}
+

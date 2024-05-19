@@ -1,0 +1,37 @@
+<div class="container-fluid">
+  <div class="row" style="display: flex; justify-content: space-between">
+    <div class="col-md-3">
+      <div class="card" id="Bonjour, c'est {{user?.nom}}">
+        <img class="profile-img" src="{{urlPicture}}" alt="img">
+      </div>
+    </div>
+    <div class="col-md-8">
+      <div class="title">
+        <h1><span>Bienvenue {{ user?.prenom }} !</span></h1>
+      </div>
+      <div class="info-user">
+        <h2 class="text">Voici les informations sur votre profil:</h2>
+        <div class="details">
+          <h4><span>nom:</span> {{ user?.nom }} </h4>
+          <h4><span>prénom:</span> {{ user?.prenom }} </h4>
+          <h4><span>date de naissance:</span> {{ user?.dateDeNaissance | date:'dd/MM/yyyy' }} </h4>
+          <h4><span>mail:</span> {{user?.mail}} </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row" style="margin: 2% 0">
+    <div class="card-assignment">
+      <div class="info">
+        <p class="title">Informations sur vos assignments</p>
+        <p>Cette application permet de gérer les assignments que vous rendez au professeur</p>
+        <p>Le nombre total de vos assignments est <b>15</b></p>
+        <p>Votre meilleur note est: <b>15/20</b></p>
+      </div>
+      <div class="button-group" style="display: flex; justify-content: space-around; padding-bottom: 1.5rem">
+          <button type="button" class="action">Ajouter un nouvel assignment</button>
+          <button type="button" class="action">Voir la liste de mes assigments</button>
+      </div>
+    </div>
+  </div>
+</div>

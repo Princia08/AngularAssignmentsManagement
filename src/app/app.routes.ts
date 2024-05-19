@@ -8,6 +8,7 @@ import { InscriptionComponent } from './authentification/inscription/inscription
 import { HomeComponent } from './home/home.component';
 import {UserComponent} from "./user/user.component";
 import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignment.component";
+import {StudentsComponent} from "./students/students.component";
 
 
 export const routes: Routes = [
@@ -23,6 +24,11 @@ export const routes: Routes = [
     component: HomeComponent,
     canActivate: [homeGuard],
     children:[
+      {
+        path: 'student',
+        component: StudentsComponent,
+        data: {isSidebarOpen: true}
+      },
       {
         path: 'user',
         component: UserComponent,
@@ -43,3 +49,4 @@ export const routes: Routes = [
     canActivate: [homeGuard],
   },
 ];
+

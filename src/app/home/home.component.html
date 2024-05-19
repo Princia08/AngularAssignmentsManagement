@@ -12,11 +12,11 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-nav-list>
-      <a mat-list-item routerLink="/home">
+      <a mat-list-item routerLink="student">
         <span class="entry">
           <mat-icon>house</mat-icon>
           <span>@if (!isCollapsed) {
-            Dashboard
+            Accueil
           }</span>
         </span>
       </a>
@@ -45,6 +45,7 @@
   </mat-sidenav>
   <mat-sidenav-content [style.margin-left]="isSidebarOpen ? '97px' : '251px'">
     <!-- Main content goes here -->
+
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>
