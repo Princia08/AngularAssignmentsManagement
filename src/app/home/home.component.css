@@ -9,7 +9,6 @@
   /*background-image:linear-gradient(to bottom right, rgb(113, 116, 205), rgba(255, 255, 255, 0));*/
   /*background-image:linear-gradient(to bottom right, rgba(58, 58, 149, 0.93), rgba(255, 255, 255, 0.14));*/
   background: rgba(57, 39, 136, 0.8);
-  /*z-index: -1;*/
 }
 
 .mat-drawer {
@@ -56,6 +55,7 @@ mat-sidenav-content {
   @media screen and (min-width: 600px) {
     padding-top: 4rem;
   }
+  height: 100vh
 }
 
 ::after,

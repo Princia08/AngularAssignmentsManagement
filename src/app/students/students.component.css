@@ -90,7 +90,7 @@
   border-right: solid 0.5rem;
   animation: typewriter 2s steps(30, end) 1s 1 normal both;
   max-width: 0;
-  /*font-family: system-ui, sans-serif;*/
+  font-family: system-ui, sans-serif;
   font-size: 70px;
   line-height: 70px;
 }
