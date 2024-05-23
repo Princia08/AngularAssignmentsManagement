@@ -36,16 +36,31 @@
         <span class="entry">
           <mat-icon>add</mat-icon>
           <span>@if (!isCollapsed) {
-            Nouvel assignement
+            Nouvel assignment
           }</span>
         </span>
         </a>
       }
+      <a mat-list-item routerLink="assignment">
+        <span class="entry">
+          <mat-icon>assignment</mat-icon>
+          <span>@if (!isCollapsed) {
+            Assignment
+          }</span>
+        </span>
+      </a>
+      <a mat-list-item (click)="logout()">
+        <span class="entry">
+          <mat-icon>logout</mat-icon>
+          <span>@if (!isCollapsed) {
+            Déconnexion
+          }</span>
+        </span>
+      </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content [style.margin-left]="isSidebarOpen ? '97px' : '251px'">
     <!-- Main content goes here -->
-
     <router-outlet></router-outlet>
   </mat-sidenav-content>
 </mat-sidenav-container>

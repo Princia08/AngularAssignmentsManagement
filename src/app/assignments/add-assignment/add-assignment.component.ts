@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Renderer2} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -13,6 +13,7 @@ import { MatiereService } from '../../services/matieres/matiere.service';
 import { Matiere } from '../../models/matiere.model';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.model';
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'app-add-assignment',
@@ -36,43 +37,16 @@ export class AddAssignmentComponent implements OnInit {
   assignement: Assignment = new Assignment();
   matiere_id: string = '';
   user: User = new User();
+  message: string = '';
+  messageError: string = '';
 
   constructor(
-    private assignmentsService: AssignmentsService,
-    private matiereService: MatiereService,
-    private userService: UserService,
-    private router: Router
-  ) {}
-
-  onSubmit(event: any) {
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
-
-    // on crée un nouvel assignment
-    let nouvelAssignment = new Assignment();
-    // on genere un id aléatoire (plus tard ce sera fait coté serveur par
-    // une base de données)
-    nouvelAssignment.nom = this.nomAssignment;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
-    nouvelAssignment.idUser = this.user._id ?? '';
-    nouvelAssignment.idMatiere = this.matiere_id;
-    nouvelAssignment.remarque = '';
-    nouvelAssignment.file = '';
-    console.log(nouvelAssignment);
-    // on utilise le service pour directement ajouter
-    // le nouvel assignment dans le tableau
-    this.assignmentsService
-      .addAssignment(nouvelAssignment)
-      .subscribe((reponse) => {
-        console.log(reponse);
-        // On navigue pour afficher la liste des assignments
-        // en utilisant le router de manière programmatique
-        this.router.navigate(['/home']);
-      });
+    private renderer: Renderer2, private http : HttpClient,
+    private assignmentsService: AssignmentsService, private matiereService: MatiereService, private userService: UserService, private router: Router) {
   }
 
   async ngOnInit() {
-    console.log('ngOnInit assignments, appelée AVANT affichage du composant');
+    this.loadSvg();
     this.userService.getUser().subscribe((user) => {
       this.user = user;
     });
@@ -85,5 +59,55 @@ export class AddAssignmentComponent implements OnInit {
         console.error('Error fetching matieres:', error);
       }
     );
+    this.message = '';
+    this.messageError = '';
+  }
+
+  private loadSvg() {
+    let svgUrl = "assets/student.svg"
+    this.http.get(svgUrl, { responseType: 'text' }).subscribe(svgContent => {
+      const svgContainer = this.renderer.selectRootElement('#svgContainer', true);
+      svgContainer.innerHTML = ''; // Clear the container
+      svgContainer.innerHTML = svgContent; // Insert the SVG content
+      this.restartAnimation(svgContainer);
+    });
+  }
+
+  // restart animation for svg when recharging page
+  private restartAnimation(svgContainer: HTMLElement) {
+    const svgElement = svgContainer.querySelector('svg');
+    if (svgElement) {
+      const clonedSvgElement = svgElement.cloneNode(true);
+      svgContainer.removeChild(svgElement);
+      svgContainer.appendChild(clonedSvgElement);
+    }
+  }
+
+  onSubmit(event: any) {
+    this.message = '';
+    this.messageError = '';
+
+    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
+
+    let nouvelAssignment = new Assignment();
+    nouvelAssignment.nom = this.nomAssignment;
+    nouvelAssignment.dateDeRendu = this.dateDeRendu;
+    nouvelAssignment.rendu = false;
+    nouvelAssignment.idUser = this.user._id ?? '';
+    nouvelAssignment.idMatiere = this.matiere_id;
+    nouvelAssignment.remarque = '';
+    nouvelAssignment.file = '';
+
+    if (nouvelAssignment.dateDeRendu > new Date()) {
+      this.messageError = 'Veuillez choisir une date de rendu inférieure à la date actuelle.';
+      return
+    }
+
+    this.assignmentsService
+      .addAssignment(nouvelAssignment)
+      .subscribe((response) => {
+        this.message = response.message;
+        this.router.navigate(['/home/add']);
+      });
   }
 }

@@ -3,6 +3,7 @@ import {environment} from "../../environments/environment.development";
 import {UserService} from "../services/user/user.service";
 import {User} from "../models/user.model";
 import {DatePipe} from "@angular/common";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-students',
@@ -17,7 +18,7 @@ export class StudentsComponent implements OnInit {
   urlPicture !: string;
   user?: User;
 
-  constructor(private userService: UserService) {
+  constructor(private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
@@ -30,4 +31,13 @@ export class StudentsComponent implements OnInit {
       this.urlPicture= environment.apiURL + "/images/" + this.user?.image;
     });
   }
+
+  addAssignment() {
+    this.router.navigateByUrl('/home/add')
+  }
+
+  listeAssignment() {
+    this.router.navigateByUrl('/home/assignment')
+  }
+
 }
