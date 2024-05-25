@@ -37,7 +37,7 @@ export class StudentsComponent implements OnInit {
   }
 
   loadMyAssignment() {
-    this.assignmentService.getAssignment().subscribe((assignment) => {
+    this.assignmentService.getAssignmentForNote().subscribe((assignment) => {
       this.numberAssignment = assignment.length;
 
       // get the maximum note

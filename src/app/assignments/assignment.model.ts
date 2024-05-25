@@ -8,4 +8,6 @@ export class Assignment {
   idUser!: string;
   remarque!: string;
   note!: number;
+  imageMatiere!: string;
+  imageProf!: string;
 }

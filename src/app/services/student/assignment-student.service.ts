@@ -14,7 +14,12 @@ export class AssignmentStudentService {
   constructor(private http: HttpClient) {
   }
 
-  getAssignment(): Observable<Assignment[]> {
+  getAssignment(): Observable<any[]> {
+    let token = localStorage.getItem('token');
+    return this.http.get<Assignment[]>(this.url + '/me/'+token);
+  }
+
+  getAssignmentForNote(): Observable<Assignment[]> {
     let token = localStorage.getItem('token');
     return this.http.get<Assignment[]>(this.url + '/me/'+token);
   }
