@@ -1,5 +1,5 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -14,6 +14,7 @@ import { Matiere } from '../../models/matiere.model';
 import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.model';
 import {HttpClient} from "@angular/common/http";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-add-assignment',
@@ -25,20 +26,28 @@ import {HttpClient} from "@angular/common/http";
     MatFormFieldModule,
     MatDatepickerModule,
     MatButtonModule,
+    MatIcon,
+    ReactiveFormsModule,
   ],
   templateUrl: './add-assignment.component.html',
   styleUrl: './add-assignment.component.css',
 })
 export class AddAssignmentComponent implements OnInit {
-  // champs du formulaire
-  nomAssignment = '';
-  dateDeRendu = undefined;
   listeMatiere: Matiere[] = [];
-  assignement: Assignment = new Assignment();
-  matiere_id: string = '';
   user: User = new User();
   message: string = '';
   messageError: string = '';
+  fileName!: string;
+
+  // champs du formulaire
+  assignmentForm = new FormGroup({
+    nom: new FormControl('', [Validators.required]),
+    idMatiere: new FormControl('', [Validators.required]),
+    file: new FormControl('', [Validators.required]),
+    dateDeRendu: new FormControl(new Date()),
+    rendu: new FormControl(false),
+    remarque: new FormControl('')
+})
 
   constructor(
     private renderer: Renderer2, private http : HttpClient,
@@ -61,6 +70,7 @@ export class AddAssignmentComponent implements OnInit {
     );
     this.message = '';
     this.messageError = '';
+    this.fileName = '';
   }
 
   private loadSvg() {
@@ -83,31 +93,35 @@ export class AddAssignmentComponent implements OnInit {
     }
   }
 
-  onSubmit(event: any) {
+
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+      formData.append("image", file, file.name);
+      const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
+      upload$.subscribe();
+    }
+  }
+
+  addAssignment() {
     this.message = '';
     this.messageError = '';
 
-    if (this.nomAssignment == '' || this.dateDeRendu === undefined) return;
-
-    let nouvelAssignment = new Assignment();
-    nouvelAssignment.nom = this.nomAssignment;
-    nouvelAssignment.dateDeRendu = this.dateDeRendu;
-    nouvelAssignment.rendu = false;
-    nouvelAssignment.idUser = this.user._id ?? '';
-    nouvelAssignment.idMatiere = this.matiere_id;
-    nouvelAssignment.remarque = '';
-    nouvelAssignment.file = '';
-
-    if (nouvelAssignment.dateDeRendu > new Date()) {
-      this.messageError = 'Veuillez choisir une date de rendu inférieure à la date actuelle.';
-      return
+    if (this.assignmentForm.invalid) {
+      this.messageError = 'Veuillez renseigner tous les champs';
+      return;
     }
 
+    this.assignmentForm.patchValue({file: this.fileName})
     this.assignmentsService
-      .addAssignment(nouvelAssignment)
+      .addAssignment(this.assignmentForm.value)
       .subscribe((response) => {
         this.message = response.message;
         this.router.navigate(['/home/add']);
       });
+
+    this.assignmentForm.reset();
   }
 }
