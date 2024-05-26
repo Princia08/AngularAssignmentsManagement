@@ -69,6 +69,7 @@ export class AssignmentsService {
 
   // ajoute un assignment et retourne une confirmation
   addAssignment(assignment: any): Observable<any> {
+    assignment.token = localStorage.getItem('token');
     return this.http.post<Assignment>(this.uri, assignment);
   }
 

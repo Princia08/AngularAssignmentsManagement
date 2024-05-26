@@ -46,7 +46,8 @@ export class AddAssignmentComponent implements OnInit {
     file: new FormControl('', [Validators.required]),
     dateDeRendu: new FormControl(new Date()),
     rendu: new FormControl(false),
-    remarque: new FormControl('')
+    remarque: new FormControl(''),
+    idUser: new FormControl('')
 })
 
   constructor(
@@ -70,7 +71,6 @@ export class AddAssignmentComponent implements OnInit {
     );
     this.message = '';
     this.messageError = '';
-    this.fileName = '';
   }
 
   private loadSvg() {
@@ -101,20 +101,22 @@ export class AddAssignmentComponent implements OnInit {
       const formData = new FormData();
       formData.append("image", file, file.name);
       const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
-      upload$.subscribe();
+      upload$.subscribe( () => {
+        this.assignmentForm.patchValue({file: this.fileName})
+      } );
     }
   }
 
   addAssignment() {
     this.message = '';
     this.messageError = '';
-
+    
     if (this.assignmentForm.invalid) {
       this.messageError = 'Veuillez renseigner tous les champs';
       return;
     }
 
-    this.assignmentForm.patchValue({file: this.fileName})
+    this.assignmentForm.patchValue({idUser: this.user._id})
     this.assignmentsService
       .addAssignment(this.assignmentForm.value)
       .subscribe((response) => {
