@@ -110,7 +110,7 @@ export class AddAssignmentComponent implements OnInit {
   addAssignment() {
     this.message = '';
     this.messageError = '';
-    
+
     if (this.assignmentForm.invalid) {
       this.messageError = 'Veuillez renseigner tous les champs';
       return;

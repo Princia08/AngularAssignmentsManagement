@@ -20,7 +20,7 @@ export class AuthService {
       if(user.type == 0) {
         this.router.navigateByUrl('/home/student')
       }
-      else this.router.navigateByUrl('/home')
+      else this.router.navigateByUrl('/home/assignment')
       this.loggedIn = true;
     })
 
