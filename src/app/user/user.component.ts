@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
 import {MatMiniFabButton} from "@angular/material/button";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment.development";
 
 @Component({
   selector: 'app-user',
@@ -36,6 +37,9 @@ export class UserComponent implements OnInit{
   displayStyleProf = "none";
   message = "";
   messagePopupProf = "";
+  url = environment.apiURL;
+
+
   ngOnInit(): void {
     this.loadInactivatedUsers();
   }
@@ -98,7 +102,7 @@ export class UserComponent implements OnInit{
       this.imageMatiere = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
+      const upload$ = this.http.post(this.url+"/api/upload", formData);
       upload$.subscribe();
     }
   }

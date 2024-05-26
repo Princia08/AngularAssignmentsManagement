@@ -15,6 +15,7 @@ import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.model';
 import {HttpClient} from "@angular/common/http";
 import {MatIcon} from "@angular/material/icon";
+import {environment} from "../../../environments/environment.development";
 
 @Component({
   selector: 'app-add-assignment',
@@ -38,6 +39,7 @@ export class AddAssignmentComponent implements OnInit {
   message: string = '';
   messageError: string = '';
   fileName!: string;
+  url = environment.apiURL;
 
   // champs du formulaire
   assignmentForm = new FormGroup({
@@ -100,7 +102,7 @@ export class AddAssignmentComponent implements OnInit {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
+      const upload$ = this.http.post(this.url+"/api/upload", formData);
       upload$.subscribe( () => {
         this.assignmentForm.patchValue({file: this.fileName})
       } );
