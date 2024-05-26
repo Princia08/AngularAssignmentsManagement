@@ -12,16 +12,18 @@
       <mat-icon>menu</mat-icon>
     </button>
     <mat-nav-list>
-      <a mat-list-item routerLink="student">
+
+      @if (isAdmin) {
+
+        <a mat-list-item routerLink="assignment">
         <span class="entry">
           <mat-icon>house</mat-icon>
           <span>@if (!isCollapsed) {
             Accueil
           }</span>
         </span>
-      </a>
+        </a>
 
-      @if (isAdmin) {
         <a mat-list-item routerLink="user">
         <span class="entry">
           <mat-icon>person</mat-icon>
@@ -32,6 +34,15 @@
         </a>
         <!--list des menu si étudiants-->
       } @else {
+        <a mat-list-item routerLink="student">
+        <span class="entry">
+          <mat-icon>house</mat-icon>
+          <span>@if (!isCollapsed) {
+            Accueil
+          }</span>
+        </span>
+        </a>
+
         <a mat-list-item routerLink="add">
         <span class="entry">
           <mat-icon>add</mat-icon>
@@ -40,15 +51,16 @@
           }</span>
         </span>
         </a>
-      }
-      <a mat-list-item routerLink="assignmentStudent">
+
+        <a mat-list-item routerLink="assignmentStudent">
         <span class="entry">
           <mat-icon>assignment</mat-icon>
           <span>@if (!isCollapsed) {
             Assignment
           }</span>
         </span>
-      </a>
+        </a>
+      }
       <a mat-list-item (click)="logout()">
         <span class="entry">
           <mat-icon>logout</mat-icon>
