@@ -23,7 +23,7 @@
         </div>
         @if(assignment.rendu) {
         <div class="card__indicator">
-          <p>note: {{ assignment.note }}/20</p>
+          <p>note: <b style="color:#575757;">{{ assignment.note }}/20</b></p>
           <p>rendu le {{ assignment.dateDeRendu | date:'dd MMM yyyy à hh:mm:ss' }}</p>
         </div>
         }

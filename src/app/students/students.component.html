@@ -26,7 +26,13 @@
         <p class="title">Informations sur vos assignments</p>
         <p>Cette application permet de gérer les assignments que vous rendez au professeur</p>
         <p>Le nombre total de vos assignments est <b>{{numberAssignment}}</b></p>
-        <p>Votre meilleur note est: <b>{{ this.maxNote }}/20</b></p>
+
+        @if(maxNote == 0) {
+          <p>Vous n'avez pas encore d'assignment rendu</p>
+        }
+        @else {
+          <p>Votre meilleur note est: <b>{{ this.maxNote }}/20</b></p>
+        }
       </div>
       <div class="button-group" style="display: flex; justify-content: space-around; padding-bottom: 1.5rem">
           <button type="button" class="action" (click)="addAssignment()">Ajouter un nouvel assignment</button>
