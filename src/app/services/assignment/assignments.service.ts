@@ -68,10 +68,7 @@ export class AssignmentsService {
   }
 
   // ajoute un assignment et retourne une confirmation
-  addAssignment(assignment: Assignment): Observable<any> {
-    //this.assignments.push(assignment);
-    this.logService.log(assignment.nom, 'ajouté');
-    //return of("Assignment ajouté avec succès");
+  addAssignment(assignment: any): Observable<any> {
     return this.http.post<Assignment>(this.uri, assignment);
   }
 
