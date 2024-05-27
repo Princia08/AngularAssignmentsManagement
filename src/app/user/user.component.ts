@@ -102,7 +102,7 @@ export class UserComponent implements OnInit{
       this.imageMatiere = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post(this.url+"/api/upload", formData);
+      const upload$ = this.http.post(this.url+"/upload", formData);
       upload$.subscribe();
     }
   }
