@@ -123,4 +123,45 @@ export class AssignmentsService {
 
     return forkJoin(appelsVersAddAssignment);
   }
+
+  getAssignmentsbyMatierePagines(
+    page: number = 1,
+    limit: number = 10,
+    idmatiere: string
+  ): Observable<any> {
+    return this.http.get<Assignment[]>(
+      this.uri + '/matiere/' + idmatiere + '?page=' + page + '&limit=' + limit
+    );
+  }
+
+  getAssignmentsCorrigerPagines(page: number, limit: number): Observable<any> {
+    //get token from localstorage
+    let token = localStorage.getItem('token');
+    return this.http.get<Assignment[]>(
+      this.uri +
+        '/matiere/Corriger?page=' +
+        page +
+        '&limit=' +
+        limit +
+        '&token=' +
+        token
+    );
+  }
+
+  getAssignmentsNonCorrigerPagines(
+    page: number,
+    limit: number
+  ): Observable<any> {
+    //get token from localstorage
+    let token = localStorage.getItem('token');
+    return this.http.get<Assignment[]>(
+      this.uri +
+        '/matiere/nonCorriger?page=' +
+        page +
+        '&limit=' +
+        limit +
+        '&token=' +
+        token
+    );
+  }
 }

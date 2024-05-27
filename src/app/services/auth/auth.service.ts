@@ -1,28 +1,28 @@
-import {Injectable} from '@angular/core';
-import {Router} from "@angular/router";
-import {UserService} from "../user/user.service";
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { UserService } from '../user/user.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  constructor(private router: Router, private userService: UserService) {
-  }
+  constructor(private router: Router, private userService: UserService) {}
 
   // propriété pour savoir si l'utilisateur est connecté
   loggedIn = false;
 
   logIn(token: string) {
     // on stock le token dans le localStorage du header
-    localStorage.setItem('token', token)
-    this.router.navigateByUrl('/home')
+    localStorage.setItem('token', token);
+    // localStorage.setItem('matiere',user.);
+    this.router.navigateByUrl('/home');
     this.loggedIn = true;
   }
 
   logOut() {
     // on retire le token du localStorage du header
-    localStorage.removeItem('token')
-    this.router.navigateByUrl('/')
+    localStorage.removeItem('token');
+    this.router.navigateByUrl('/');
     this.loggedIn = false;
   }
 
@@ -41,11 +41,10 @@ export class AuthService {
       this.userService.getUser().subscribe({
         next: (user) => {
           // resolve(user.isAdmin && this.loggedIn)
-          resolve(user.isAdmin)
+          resolve(user.isAdmin);
         },
-        error: (err) => reject(err)
+        error: (err) => reject(err),
       });
     });
   }
 }
-
