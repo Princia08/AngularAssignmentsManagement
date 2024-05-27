@@ -7,6 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
 import { bdInitialAssignments } from '../../shared/data';
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root',
@@ -16,9 +17,8 @@ export class AssignmentsService {
 
   constructor(private logService: LoggingService, private http: HttpClient) {}
 
-  //uri = 'http://localhost:8010/api/assignments';
   //uri = 'https://backendassigments.onrender.com/api/assignments';
-  uri = 'http://localhost:8010/api/assignments';
+  uri = environment.apiURL + '/assignments';
 
   // retourne tous les assignments
   getAssignments(): Observable<Assignment[]> {
@@ -68,10 +68,8 @@ export class AssignmentsService {
   }
 
   // ajoute un assignment et retourne une confirmation
-  addAssignment(assignment: Assignment): Observable<any> {
-    //this.assignments.push(assignment);
-    this.logService.log(assignment.nom, 'ajouté');
-    //return of("Assignment ajouté avec succès");
+  addAssignment(assignment: any): Observable<any> {
+    assignment.token = localStorage.getItem('token');
     return this.http.post<Assignment>(this.uri, assignment);
   }
 

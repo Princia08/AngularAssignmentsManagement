@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {User} from '../../models/user.model';
+import {environment} from "../../../environments/environment.development";
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +11,7 @@ export class UserService {
   constructor(private http: HttpClient) {
   }
 
-  url = 'http://localhost:8010/api/users';
+  url = environment.apiURL + '/users';
 
   authentification(user: any): Observable<any> {
     return this.http.post<User>(this.url + '/login', user);

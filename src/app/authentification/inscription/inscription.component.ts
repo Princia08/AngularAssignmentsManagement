@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {HttpClient} from "@angular/common/http";
 import {MatMiniFabButton} from "@angular/material/button";
+import {environment} from "../../../environments/environment.development";
 
 @Component({
   selector: 'app-inscription',
@@ -37,6 +38,7 @@ export class InscriptionComponent {
 
   errorMessage = ""
   fileName!: string;
+  url = environment.apiURL;
 
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
@@ -44,7 +46,7 @@ export class InscriptionComponent {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
+      const upload$ = this.http.post(this.url+"/upload", formData);
       upload$.subscribe();
     }
   }

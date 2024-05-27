@@ -74,7 +74,6 @@ export class HomeComponent implements OnInit {
     });
 
     this.authService.isAdmin().then((result) => {
-      console.log('isAdmin', result)
       this.isAdmin = result
     })
   }
@@ -92,5 +91,9 @@ export class HomeComponent implements OnInit {
 
     // Save the state of the sidebar in localStorage
     localStorage.setItem('isSidebarOpen', JSON.stringify(this.isSidebarOpen));
+  }
+
+  logout() {
+    this.authService.logOut();
   }
 }

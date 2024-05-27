@@ -8,6 +8,12 @@ import { InscriptionComponent } from './authentification/inscription/inscription
 import { HomeComponent } from './home/home.component';
 import {UserComponent} from "./user/user.component";
 import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignment.component";
+import {StudentsComponent} from "./students/students.component";
+import {AssignmentsComponent} from "./assignments/assignments.component";
+import {AssignmentStudentComponent} from "./students/assignment-student/assignment-student.component";
+import {
+  AssignmentStudentDetailsComponent
+} from "./students/assignment-student-details/assignment-student-details.component";
 
 
 export const routes: Routes = [
@@ -24,6 +30,11 @@ export const routes: Routes = [
     canActivate: [homeGuard],
     children:[
       {
+        path: 'student',
+        component: StudentsComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
         path: 'user',
         component: UserComponent,
         data: {isSidebarOpen: true}
@@ -31,6 +42,21 @@ export const routes: Routes = [
       {
         path: 'add',
         component: AddAssignmentComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
+        path: 'assignment',
+        component: AssignmentsComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
+        path: 'assignmentStudent',
+        component: AssignmentStudentComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
+        path: 'assignmentStudent/details/:id',
+        component: AssignmentStudentDetailsComponent,
         data: {isSidebarOpen: true}
       }
     ]
@@ -43,3 +69,4 @@ export const routes: Routes = [
     canActivate: [homeGuard],
   },
 ];
+
