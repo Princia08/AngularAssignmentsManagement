@@ -1,30 +1,30 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-6 img">
-      <img src="{{environment.apiURL}}/images/{{assignment.idMatiere.image}}">
+      <img src="{{environment.apiURL}}/images/{{assignment?.idMatiere.image}}">
     </div>
     <div class="col-md-6">
       <div class="title">
-        {{ assignment.nom }}
+        {{ assignment?.nom }}
       </div>
 
       <div class="details">
         <h4><span
-          class="attribut">Professeur:</span> {{ assignment.idMatiere.prof.prenom }} {{ assignment.idMatiere.prof.nom }}
+          class="attribut">Professeur:</span> {{ assignment?.idMatiere.prof.prenom }} {{ assignment?.idMatiere.prof.nom }}
         </h4>
-        <h4><span class="attribut">Matière:</span> {{ assignment.idMatiere.nom }}</h4>
-        <h4><span class="attribut">Date de rendu:</span> {{ assignment.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
+        <h4><span class="attribut">Matière:</span> {{ assignment?.idMatiere.nom }}</h4>
+        <h4><span class="attribut">Date de rendu:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
         </h4>
-        <h4><span class="attribut">Rendu:</span> {{ assignment.rendu ? 'Oui' : 'Non' }}</h4>
-        @if (assignment.rendu) {
-          <h4><span class="attribut">Note:</span> {{ assignment.note }}/20</h4>
+        <h4><span class="attribut">Rendu:</span> {{ assignment?.rendu ? 'Oui' : 'Non' }}</h4>
+        @if (assignment?.rendu) {
+          <h4><span class="attribut">Note:</span> {{ assignment?.note }}/20</h4>
         }
-        @if (assignment.file) {
+        @if (assignment?.file) {
           <div class="file">
             <span class="attribut">Fichier:</span>
-            <div class="file-details" (click)="openFile(assignment.file)">
+            <div class="file-details" (click)="openFile(assignment?.file)">
               <mat-icon>description</mat-icon>
-              <h4>{{ assignment.file }}</h4>
+              <h4>{{ assignment?.file }}</h4>
             </div>
           </div>
         } @else {

@@ -18,7 +18,8 @@ import {AssignmentStudentService} from "../../services/student/assignment-studen
 export class AssignmentStudentDetailsComponent implements OnInit{
 
   id = ''
-  assignment: any;
+  assignment!: any;
+  protected readonly environment = environment;
 
   constructor(private router: Router, private route: ActivatedRoute, private assignmentService: AssignmentStudentService) {
     this.id = this.route.snapshot.params['id']
@@ -31,7 +32,6 @@ export class AssignmentStudentDetailsComponent implements OnInit{
   loadAssignmentDetails() {
     this.assignmentService.getAssignmentDetails(this.id).subscribe((assignment) => {
       this.assignment = assignment;
-      console.log(this.assignment);
     });
   }
 
@@ -42,7 +42,4 @@ export class AssignmentStudentDetailsComponent implements OnInit{
   listAssignment() {
       this.router.navigateByUrl('/home/assignmentStudent');
   }
-
-
-  protected readonly environment = environment;
 }
