@@ -23,4 +23,8 @@ export class AssignmentStudentService {
     let token = localStorage.getItem('token');
     return this.http.get<Assignment[]>(this.url + '/me/'+token);
   }
+
+  getAssignmentDetails( id: string) : Observable<any> {
+    return this.http.get<Assignment>(this.url+'/'+id);
+  }
 }

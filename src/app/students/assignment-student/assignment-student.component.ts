@@ -3,6 +3,7 @@ import {AssignmentStudentService} from "../../services/student/assignment-studen
 import {Assignment} from "../../assignments/assignment.model";
 import {DatePipe} from "@angular/common";
 import {environment} from "../../../environments/environment.development";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -17,7 +18,7 @@ import {environment} from "../../../environments/environment.development";
 export class AssignmentStudentComponent implements OnInit {
   assignments: any= [];
 
-  constructor(private assignmentService : AssignmentStudentService) {
+  constructor(private router: Router, private assignmentService : AssignmentStudentService) {
   }
 
   ngOnInit() {
@@ -28,6 +29,7 @@ export class AssignmentStudentComponent implements OnInit {
     this.assignmentService.getAssignment().subscribe((assignments) => {
       for (let i = 0; i < assignments.length; i++) {
         this.assignments.push({
+          id: assignments[i]._id,
           nom: assignments[i].nom,
           dateDeRendu: assignments[i].dateDeRendu,
           rendu: assignments[i].rendu,
@@ -42,6 +44,10 @@ export class AssignmentStudentComponent implements OnInit {
         });
       }
     });
+  }
+
+  seeDetails(id: string) {
+    this.router.navigate(['/home/assignmentStudent/details', id])
   }
 
   protected readonly environment = environment;

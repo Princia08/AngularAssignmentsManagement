@@ -11,6 +11,9 @@ import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignmen
 import {StudentsComponent} from "./students/students.component";
 import {AssignmentsComponent} from "./assignments/assignments.component";
 import {AssignmentStudentComponent} from "./students/assignment-student/assignment-student.component";
+import {
+  AssignmentStudentDetailsComponent
+} from "./students/assignment-student-details/assignment-student-details.component";
 
 
 export const routes: Routes = [
@@ -49,6 +52,11 @@ export const routes: Routes = [
       {
         path: 'assignmentStudent',
         component: AssignmentStudentComponent,
+        data: {isSidebarOpen: true}
+      },
+      {
+        path: 'assignmentStudent/details/:id',
+        component: AssignmentStudentDetailsComponent,
         data: {isSidebarOpen: true}
       }
     ]
