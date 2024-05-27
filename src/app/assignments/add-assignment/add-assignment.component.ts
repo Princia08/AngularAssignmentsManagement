@@ -45,7 +45,7 @@ export class AddAssignmentComponent implements OnInit {
   assignmentForm = new FormGroup({
     nom: new FormControl('', [Validators.required]),
     idMatiere: new FormControl('', [Validators.required]),
-    file: new FormControl('', [Validators.required]),
+    file: new FormControl(''),
     dateDeRendu: new FormControl(new Date()),
     rendu: new FormControl(false),
     remarque: new FormControl(''),
@@ -119,6 +119,7 @@ export class AddAssignmentComponent implements OnInit {
     }
 
     this.assignmentForm.patchValue({idUser: this.user._id})
+
     this.assignmentsService
       .addAssignment(this.assignmentForm.value)
       .subscribe((response) => {
@@ -127,5 +128,6 @@ export class AddAssignmentComponent implements OnInit {
       });
 
     this.assignmentForm.reset();
+    this.fileName='';
   }
 }
