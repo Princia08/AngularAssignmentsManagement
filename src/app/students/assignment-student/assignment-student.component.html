@@ -4,7 +4,7 @@
 
   <div class="row-card">
     @for (assignment of assignments; track assignment.nom) {
-      <div class="card">
+      <div class="card"  (click)="seeDetails(assignment.id)">
         <div class="card__wrapper">
           <div class="card___wrapper-acounts">
 
