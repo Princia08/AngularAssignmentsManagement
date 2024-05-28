@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {environment} from "../../../environments/environment.development";
+import {environment} from "../../../environments/environment";
 import {DatePipe} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {AssignmentStudentService} from "../../services/student/assignment-student.service";

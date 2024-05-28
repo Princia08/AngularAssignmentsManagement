@@ -5,8 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
-
-import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../services/assignment/assignments.service';
 import { Router } from '@angular/router';
 import { MatiereService } from '../../services/matieres/matiere.service';
@@ -15,7 +13,7 @@ import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.model';
 import {HttpClient} from "@angular/common/http";
 import {MatIcon} from "@angular/material/icon";
-import {environment} from "../../../environments/environment.development";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-add-assignment',

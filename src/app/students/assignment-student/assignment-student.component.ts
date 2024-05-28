@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AssignmentStudentService} from "../../services/student/assignment-student.service";
-import {Assignment} from "../../assignments/assignment.model";
 import {DatePipe} from "@angular/common";
-import {environment} from "../../../environments/environment.development";
+import {environment} from "../../../environments/environment";
 import {Router} from "@angular/router";
 
 

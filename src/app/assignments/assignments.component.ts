@@ -148,7 +148,6 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
       });
-    console.log('Requête envoyée');
   }
 
   // Pour la pagination

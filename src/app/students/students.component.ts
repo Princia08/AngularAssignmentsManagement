@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {environment} from "../../environments/environment.development";
+import {environment} from "../../environments/environment";
 import {UserService} from "../services/user/user.service";
 import {User} from "../models/user.model";
 import {DatePipe} from "@angular/common";

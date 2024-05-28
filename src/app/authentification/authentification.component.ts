@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { interval } from "rxjs";
 import { CommonModule } from "@angular/common";
 import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from "../services/user/user.service";

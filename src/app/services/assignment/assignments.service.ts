@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
 import { bdInitialAssignments } from '../../shared/data';
-import {environment} from "../../../environments/environment.development";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root',

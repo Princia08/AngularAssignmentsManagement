@@ -15,7 +15,6 @@ import {AuthService} from './services/auth/auth.service';
 import {AssignmentsService} from './services/assignment/assignments.service';
 import {AnimationItem} from 'lottie-web';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
-import {interval} from "rxjs";
 
 @Component({
   selector: 'app-root',
