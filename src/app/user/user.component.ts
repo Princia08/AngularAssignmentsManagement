@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatIcon} from "@angular/material/icon";
 import {MatMiniFabButton} from "@angular/material/button";
 import {HttpClient} from "@angular/common/http";
+import {environment} from "../../environments/environment.development";
 
 @Component({
   selector: 'app-user',
@@ -36,6 +37,9 @@ export class UserComponent implements OnInit{
   displayStyleProf = "none";
   message = "";
   messagePopupProf = "";
+  url = environment.apiURL;
+
+
   ngOnInit(): void {
     this.loadInactivatedUsers();
   }
@@ -69,18 +73,23 @@ export class UserComponent implements OnInit{
   }
   activerProf() {
     if (this.nomMatiere && this.imageMatiere) {
-      this.user!.isActivate = true;
-      this.user!.isAdmin = true;
-      this.userService.updateUser(this.user).subscribe((user) => {
+
         var matiere = new Matiere();
         matiere.nom = this.nomMatiere;
-        matiere.image = "matiere.jpg";
+        matiere.image = this.imageMatiere;
         matiere.prof = this.user;
-        this.matiereService.addMatiere(matiere).subscribe();
-        this.message = this.user!.prenom + " " + this.user!.nom + " a été activé avec succès en tant que prof/admin et assigné(e) à la matière " + this.nomMatiere + "!";
-        this.loadInactivatedUsers();
-        this.displayStyleProf = "none";
-      })
+        this.matiereService.addMatiere(matiere).subscribe( {
+          next: res => {
+            this.user!.isActivate = true;
+            this.user!.isAdmin = true;
+            this.userService.updateUser(this.user).subscribe();
+            this.displayStyleProf = "none";
+            this.loadInactivatedUsers();
+            this.message = this.user!.prenom + " " + this.user!.nom + " a été activé avec succès en tant que prof/admin et assigné(e) à la matière " + this.nomMatiere + "!";
+          },
+          error: err => this.messagePopupProf = err.error
+          }
+        );
     }
     else {
       this.messagePopupProf = "Veuillez remplir tous les champs!";
@@ -93,7 +102,7 @@ export class UserComponent implements OnInit{
       this.imageMatiere = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post("http://localhost:8010/api/upload", formData);
+      const upload$ = this.http.post(this.url+"/upload", formData);
       upload$.subscribe();
     }
   }

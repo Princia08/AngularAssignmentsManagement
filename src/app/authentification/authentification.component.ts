@@ -1,44 +1,42 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { interval } from "rxjs";
+import { CommonModule } from "@angular/common";
+import { FormGroup, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from "../services/user/user.service";
+import { User } from "../models/user.model";
+import { AuthService } from "../services/auth/auth.service";
+import {RouterOutlet} from "@angular/router";
+
 import { RiveModule } from 'ng-rive';
-import { interval } from 'rxjs';
-import { CommonModule } from '@angular/common';
-import {
-  FormGroup,
-  FormControl,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
-import { UserService } from '../services/user/user.service';
-import { User } from '../models/user.model';
-import { AuthService } from '../services/auth/auth.service';
 
 @Component({
   selector: 'app-authentification',
   standalone: true,
-  imports: [RiveModule, CommonModule, ReactiveFormsModule],
+  imports: [
+    RiveModule,
+    CommonModule,
+    ReactiveFormsModule,
+    RouterOutlet
+  ],
   providers: [User],
   templateUrl: './authentification.component.html',
   styleUrl: './authentification.component.css',
 })
-export class AuthentificationComponent implements OnInit {
-  constructor(
-    private userService: UserService,
-    private authService: AuthService
-  ) {}
 
-  loader = true;
-  private _interval = interval(500);
-  private sub = this._interval.subscribe(() => {
-    this.loader = false;
-  });
+export class AuthentificationComponent implements OnInit{
 
   userForm = new FormGroup({
     mail: new FormControl(''),
     password: new FormControl(''),
   });
 
-  errorMessage = '';
-  ngOnInit() {}
+  errorMessage = ""
+
+  constructor(private userService : UserService, private authService: AuthService) { }
+  ngOnInit() {
+
+  }
+
 
   login() {
     this.userService.authentification(this.userForm.value).subscribe({

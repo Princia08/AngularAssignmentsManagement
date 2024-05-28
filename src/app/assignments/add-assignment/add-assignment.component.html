@@ -1,47 +1,52 @@
-<h1>Ajout d'un assignment par {{ user.prenom }}</h1>
-<form
-  #assignmentForm="ngForm"
-  (submit)="onSubmit(assignmentForm); assignmentForm.reset()"
-  class="form"
->
-  <mat-form-field>
-    <input
-      matInput
-      placeholder="Nom de l'assignment"
-      required
-      [(ngModel)]="nomAssignment"
-      name="nom"
-    />
-  </mat-form-field>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="card">
+        <h1>{{ user.prenom }},
+          ajouter votre assignment ici !</h1>
+        <form [formGroup]="assignmentForm" class="form">
 
-  <mat-form-field>
-    <mat-label>Date de rendu</mat-label>
-    <input
-      type="date"
-      matInput
-      [matDatepicker]="picker"
-      [(ngModel)]="dateDeRendu"
-      name="date"
-    />
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+          <input
+            class="input"
+            placeholder="Nom de l'assignment"
+            required
+            formControlName="nom"
+          />
 
-  <mat-form-field>
-    <mat-label>Matière</mat-label>
-    <select matNativeControl [(ngModel)]="matiere_id" name="matiere_id">
-      @for(mat of listeMatiere; track mat.nom){
-      <option [value]="mat._id">
-        {{ mat.nom }}
-      </option>
-      }
-    </select>
-  </mat-form-field>
+          <select formControlName="idMatiere">
+            <option value="" disabled selected>Choisir une matiere</option>
+            @for (mat of listeMatiere; track mat.nom) {
+              <option [value]="mat._id">
+                {{ mat.nom }}
+              </option>
+            }
+          </select>
 
-  <button
-    mat-stroked-button
-    color="primary"
-    [disabled]="nomAssignment == '' || dateDeRendu === undefined"
-  >
-    Ajouter un devoir
-  </button>
-</form>
+          <input type="file" (change)="onFileSelected($event);" #fileUpload style="display: none">
+
+          <div class="inputFile">
+            {{ fileName || "Joindre un fichier :" }}
+            <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+              <mat-icon>attach_file</mat-icon>
+            </button>
+          </div>
+
+          <button class="add-assignment-button"
+                  mat-stroked-button
+                  color="primary"
+                  (click) = "addAssignment()"
+                  [disabled]="assignmentForm.invalid"
+          >
+            Ajouter un devoir
+          </button>
+          <h3 style="text-align: center; color:#00b65e;margin-top: 10px"> {{ message }} </h3>
+          <h3 style="text-align: center; color:#ed0c0c;margin-top: 10px"> {{ messageError }} </h3>
+        </form>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="svg" id="svgContainer"></div>
+    </div>
+  </div>
+
+</div>
