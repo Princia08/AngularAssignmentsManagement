@@ -1,18 +1,20 @@
-table, tr, td {
+table,
+tr,
+td {
   border: 1px solid black;
   border-collapse: collapse;
   padding: 20px;
 }
 
 .rendu {
-  color:green;
+  color: green;
 }
 
 .nonRendu {
-  color:red;
+  color: red;
   background-color: yellow;
-  border:2px dashed purple;
-  padding:5px;
+  border: 2px dashed purple;
+  padding: 5px;
 }
 
 .container {
@@ -33,7 +35,7 @@ table, tr, td {
 }
 
 .example-viewport {
-  height: 300px;
+  height: 40px;
   width: 800px;
   border: 1px solid black;
 }

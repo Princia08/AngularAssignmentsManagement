@@ -7,24 +7,28 @@ import { User } from "../models/user.model";
 import { AuthService } from "../services/auth/auth.service";
 import {RouterOutlet} from "@angular/router";
 
+import { RiveModule } from 'ng-rive';
+
 @Component({
   selector: 'app-authentification',
   standalone: true,
   imports: [
+    RiveModule,
     CommonModule,
     ReactiveFormsModule,
     RouterOutlet
   ],
   providers: [User],
   templateUrl: './authentification.component.html',
-  styleUrl: './authentification.component.css'
+  styleUrl: './authentification.component.css',
 })
+
 export class AuthentificationComponent implements OnInit{
 
   userForm = new FormGroup({
     mail: new FormControl(''),
-    password: new FormControl('')
-  })
+    password: new FormControl(''),
+  });
 
   errorMessage = ""
 
@@ -33,10 +37,13 @@ export class AuthentificationComponent implements OnInit{
 
   }
 
+
   login() {
     this.userService.authentification(this.userForm.value).subscribe({
-      next: res => this.authService.logIn(res),
-      error: err => this.errorMessage = err.error
-    })
+      next: (res) => {
+        this.authService.logIn(res);
+      },
+      error: (err) => (this.errorMessage = err.error),
+    });
   }
 }

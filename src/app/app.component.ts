@@ -16,7 +16,8 @@ import {AssignmentsService} from './services/assignment/assignments.service';
 import {AnimationItem} from 'lottie-web';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
 import {interval} from "rxjs";
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -32,6 +33,7 @@ import {interval} from "rxjs";
     AssignmentsComponent,
     MatToolbarModule,
     MatListModule,
+    MatDialogModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
@@ -58,8 +60,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private assignmentsService: AssignmentsService,
     private router: Router,
     private observer: BreakpointObserver
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {

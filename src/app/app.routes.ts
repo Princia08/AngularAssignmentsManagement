@@ -15,6 +15,7 @@ import {
   AssignmentStudentDetailsComponent
 } from "./students/assignment-student-details/assignment-student-details.component";
 
+import { AssignmentListeComponent } from './assignments/dragAndDrop/assignment-liste/assignment-liste.component';
 
 export const routes: Routes = [
   { path: '', redirectTo: '/authentification', pathMatch: 'full' },
@@ -28,7 +29,7 @@ export const routes: Routes = [
     path: 'home',
     component: HomeComponent,
     canActivate: [homeGuard],
-    children:[
+    children: [
       {
         path: 'student',
         component: StudentsComponent,
@@ -37,11 +38,12 @@ export const routes: Routes = [
       {
         path: 'user',
         component: UserComponent,
-        data: {isSidebarOpen: true}
+        data: { isSidebarOpen: true },
       },
       {
         path: 'add',
         component: AddAssignmentComponent,
+
         data: {isSidebarOpen: true}
       },
       {
@@ -60,13 +62,16 @@ export const routes: Routes = [
         data: {isSidebarOpen: true}
       }
     ]
+
   },
 
-  { path: 'assignment/:id', component: AssignmentDetailComponent },
+  // { path: 'assignment/:id', component: AssignmentDetailComponent },
   {
     path: 'assignment/:id/edit',
     component: EditAssignmentComponent,
     canActivate: [homeGuard],
   },
+  { path: 'assignments', component: AssignmentsComponent },
+  { path: 'assignmentsDragDrop', component: AssignmentListeComponent },
 ];
 
