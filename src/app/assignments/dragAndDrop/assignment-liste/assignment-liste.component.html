@@ -18,16 +18,20 @@
 <div class="example-container">
   <h2>Done</h2>
 
-  <div
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
     cdkDropList
     #doneList="cdkDropList"
     [cdkDropListData]="assignmentCorige"
     [cdkDropListConnectedTo]="[todoList]"
-    class="example-list"
+    class="example-list example-viewport"
     (cdkDropListDropped)="drop($event)"
+    #scroller
   >
     @for (item of assignmentCorige; track item) {
-    <div class="example-box">{{ item.nom }}</div>
+    <mat-list class="example-box" cdkDrag [cdkDragData]="item">{{
+      item.nom
+    }}</mat-list>
     }
-  </div>
+  </cdk-virtual-scroll-viewport>
 </div>
