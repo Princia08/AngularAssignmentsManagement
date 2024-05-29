@@ -8,10 +8,13 @@ import {RouterOutlet} from "@angular/router";
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
 
+import { RiveModule } from 'ng-rive';
+
 @Component({
   selector: 'app-authentification',
   standalone: true,
   imports: [
+    RiveModule,
     CommonModule,
     ReactiveFormsModule,
     RouterOutlet,
@@ -19,14 +22,15 @@ import {AnimationItem} from "lottie-web";
   ],
   providers: [User],
   templateUrl: './authentification.component.html',
-  styleUrl: './authentification.component.css'
+  styleUrl: './authentification.component.css',
 })
-export class AuthentificationComponent implements OnInit {
+
+export class AuthentificationComponent implements OnInit{
 
   userForm = new FormGroup({
     mail: new FormControl(''),
-    password: new FormControl('')
-  })
+    password: new FormControl(''),
+  });
 
   errorMessage = ""
 
@@ -66,6 +70,7 @@ export class AuthentificationComponent implements OnInit {
   animationCreated(animationItem: AnimationItem): void {
     console.log(animationItem);
   }
+
 
   login() {
     this.showAnimation();
