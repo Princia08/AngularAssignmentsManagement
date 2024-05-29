@@ -84,11 +84,9 @@ export class InscriptionComponent implements OnInit {
       this.showAnimation()
       this.userForm.patchValue({image: this.fileName})
       this.userService.signup(this.userForm.value).subscribe({
-        next: () => {
-          this.router.navigateByUrl('/');
-          this.hideAnimation()
-        },
-        error: err => this.errorMessage = err.error
+        next: res => this.router.navigateByUrl('/'),
+        error: err => this.errorMessage = err.error,
+        complete: () => this.hideAnimation()
       })
     } else this.errorMessage = "Veuillez remplir tous les champs obligatoires"
   }

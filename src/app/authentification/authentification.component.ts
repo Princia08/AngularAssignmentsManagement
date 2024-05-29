@@ -75,11 +75,9 @@ export class AuthentificationComponent implements OnInit{
   login() {
     this.showAnimation();
     this.userService.authentification(this.userForm.value).subscribe({
-      next: res => {
-        this.authService.logIn(res)
-        this.hideAnimation()
-      },
-      error: err => this.errorMessage = err.error
+      next: res => this.authService.logIn(res),
+      error: err => this.errorMessage = err.error,
+      complete: () => this.hideAnimation()
     })
   }
 }
