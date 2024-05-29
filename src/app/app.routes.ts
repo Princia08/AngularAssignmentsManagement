@@ -11,9 +11,7 @@ import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignmen
 import {StudentsComponent} from "./students/students.component";
 import {AssignmentsComponent} from "./assignments/assignments.component";
 import {AssignmentStudentComponent} from "./students/assignment-student/assignment-student.component";
-import {
-  AssignmentStudentDetailsComponent
-} from "./students/assignment-student-details/assignment-student-details.component";
+import {AssignmentStudentDetailsComponent} from "./students/assignment-student-details/assignment-student-details.component";
 
 import { AssignmentListeComponent } from './assignments/dragAndDrop/assignment-liste/assignment-liste.component';
 

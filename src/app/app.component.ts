@@ -15,9 +15,7 @@ import {AuthService} from './services/auth/auth.service';
 import {AssignmentsService} from './services/assignment/assignments.service';
 import {AnimationItem} from 'lottie-web';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
-import {interval} from "rxjs";
 import { MatDialogModule } from '@angular/material/dialog';
-import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 @Component({
   selector: 'app-root',
   standalone: true,

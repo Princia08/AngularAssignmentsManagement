@@ -9,6 +9,7 @@ import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../services/assignment/assignments.service';
 import  {RouterLink} from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+
 @Component({
   selector: 'app-assignment-detail',
   standalone: true,
