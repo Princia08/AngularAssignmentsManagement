@@ -15,7 +15,7 @@ import {AuthService} from './services/auth/auth.service';
 import {AssignmentsService} from './services/assignment/assignments.service';
 import {AnimationItem} from 'lottie-web';
 import {AnimationOptions, LottieComponent} from 'ngx-lottie';
-
+import { MatDialogModule } from '@angular/material/dialog';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -31,11 +31,12 @@ import {AnimationOptions, LottieComponent} from 'ngx-lottie';
     AssignmentsComponent,
     MatToolbarModule,
     MatListModule,
+    MatDialogModule,
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'Application de gestion des assignments';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -57,8 +58,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private assignmentsService: AssignmentsService,
     private router: Router,
     private observer: BreakpointObserver
-  ) {
-  }
+  ) {}
 
   ngOnInit() {
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
@@ -69,18 +69,13 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.loadTimeout = setTimeout(() => {
-      this.showAnimation();
-      this.animationTimeout = setTimeout(() => {
-        this.hideAnimation();
-      }, 1750);
-    }, 0);
+    // this.loadTimeout = setTimeout(() => {
+    //   this.showAnimation();
+    //   this.animationTimeout = setTimeout(() => {
+    //     this.hideAnimation();
+    //   }, 1750);
+    // }, 0);
 
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.loadTimeout);
-    clearTimeout(this.animationTimeout);
   }
 
   showAnimation(): void {

@@ -1,0 +1,37 @@
+<div class="example-container">
+  <h2>To do</h2>
+
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="assignments"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    @for (item of assignments; track item) {
+    <div class="example-box" cdkDrag [cdkDragData]="item">{{ item.nom }}</div>
+    }
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Done</h2>
+
+  <cdk-virtual-scroll-viewport
+    itemSize="50"
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="assignmentCorige"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list example-viewport"
+    (cdkDropListDropped)="drop($event)"
+    #scroller
+  >
+    @for (item of assignmentCorige; track item) {
+    <mat-list class="example-box" cdkDrag [cdkDragData]="item">{{
+      item.nom
+    }}</mat-list>
+    }
+  </cdk-virtual-scroll-viewport>
+</div>

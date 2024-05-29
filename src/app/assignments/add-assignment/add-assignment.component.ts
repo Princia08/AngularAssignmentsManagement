@@ -1,19 +1,21 @@
 import {Component, OnInit, Renderer2} from '@angular/core';
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { provideNativeDateAdapter } from '@angular/material/core';
-import { AssignmentsService } from '../../services/assignment/assignments.service';
-import { Router } from '@angular/router';
-import { MatiereService } from '../../services/matieres/matiere.service';
-import { Matiere } from '../../models/matiere.model';
-import { UserService } from '../../services/user/user.service';
-import { User } from '../../models/user.model';
+import {MatInputModule} from '@angular/material/input';
+import {MatButtonModule} from '@angular/material/button';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {provideNativeDateAdapter} from '@angular/material/core';
+import {AssignmentsService} from '../../services/assignment/assignments.service';
+import {Router} from '@angular/router';
+import {MatiereService} from '../../services/matieres/matiere.service';
+import {Matiere} from '../../models/matiere.model';
+import {UserService} from '../../services/user/user.service';
+import {User} from '../../models/user.model';
 import {HttpClient} from "@angular/common/http";
 import {MatIcon} from "@angular/material/icon";
 import {environment} from "../../../environments/environment";
+import {AnimationOptions, LottieComponent} from "ngx-lottie";
+import {AnimationItem} from "lottie-web";
 
 @Component({
   selector: 'app-add-assignment',
@@ -27,6 +29,7 @@ import {environment} from "../../../environments/environment";
     MatButtonModule,
     MatIcon,
     ReactiveFormsModule,
+    LottieComponent,
   ],
   templateUrl: './add-assignment.component.html',
   styleUrl: './add-assignment.component.css',
@@ -48,17 +51,23 @@ export class AddAssignmentComponent implements OnInit {
     rendu: new FormControl(false),
     remarque: new FormControl(''),
     idUser: new FormControl('')
-})
+  })
+
+  options: AnimationOptions = {
+    path: '/assets/books-animation.json',
+  };
 
   constructor(
-    private renderer: Renderer2, private http : HttpClient,
+    private renderer: Renderer2, private http: HttpClient,
     private assignmentsService: AssignmentsService, private matiereService: MatiereService, private userService: UserService, private router: Router) {
   }
 
   async ngOnInit() {
     this.loadSvg();
+    this.showAnimation()
     this.userService.getUser().subscribe((user) => {
       this.user = user;
+      this.hideAnimation()
     });
 
     this.matiereService.getAllMatieres().subscribe(
@@ -73,9 +82,28 @@ export class AddAssignmentComponent implements OnInit {
     this.messageError = '';
   }
 
+  showAnimation(): void {
+    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    if (animationContainer) {
+      animationContainer.style.display = 'flex';
+    }
+  }
+
+  hideAnimation(): void {
+    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    if (animationContainer) {
+      animationContainer.style.display = 'none';
+    }
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
+  }
+
+
   private loadSvg() {
     let svgUrl = "assets/student.svg"
-    this.http.get(svgUrl, { responseType: 'text' }).subscribe(svgContent => {
+    this.http.get(svgUrl, {responseType: 'text'}).subscribe(svgContent => {
       const svgContainer = this.renderer.selectRootElement('#svgContainer', true);
       svgContainer.innerHTML = ''; // Clear the container
       svgContainer.innerHTML = svgContent; // Insert the SVG content
@@ -93,17 +121,16 @@ export class AddAssignmentComponent implements OnInit {
     }
   }
 
-
   onFileSelected(event: any) {
     const file: File = event.target.files[0];
     if (file) {
       this.fileName = file.name;
       const formData = new FormData();
       formData.append("image", file, file.name);
-      const upload$ = this.http.post(this.url+"/upload", formData);
-      upload$.subscribe( () => {
+      const upload$ = this.http.post(this.url + "/upload", formData);
+      upload$.subscribe(() => {
         this.assignmentForm.patchValue({file: this.fileName})
-      } );
+      });
     }
   }
 
@@ -126,6 +153,6 @@ export class AddAssignmentComponent implements OnInit {
       });
 
     this.assignmentForm.reset();
-    this.fileName='';
+    this.fileName = '';
   }
 }
