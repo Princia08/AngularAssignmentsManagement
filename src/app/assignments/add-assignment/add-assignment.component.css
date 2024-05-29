@@ -7,6 +7,18 @@
 /*button {*/
 /*  margin-top: 10px;*/
 /*}*/
+.animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
 
 .container-fluid {
   background-color: #eae9ff;

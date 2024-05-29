@@ -36,7 +36,7 @@ import {interval} from "rxjs";
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit {
   title = 'Application de gestion des assignments';
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
@@ -70,18 +70,13 @@ export class AppComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.loadTimeout = setTimeout(() => {
-      this.showAnimation();
-      this.animationTimeout = setTimeout(() => {
-        this.hideAnimation();
-      }, 1750);
-    }, 0);
+    // this.loadTimeout = setTimeout(() => {
+    //   this.showAnimation();
+    //   this.animationTimeout = setTimeout(() => {
+    //     this.hideAnimation();
+    //   }, 1750);
+    // }, 0);
 
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.loadTimeout);
-    clearTimeout(this.animationTimeout);
   }
 
   showAnimation(): void {
