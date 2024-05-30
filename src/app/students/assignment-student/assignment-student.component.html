@@ -1,38 +1,91 @@
 <div class="container-fluid">
-
-  <h1 class="title">Retrouver la liste de vos assignments et leurs détails ici !</h1>
-
+  <h1 class="title">
+    Retrouver la liste de vos assignments et leurs détails ici !
+  </h1>
+  <div>
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasPrevPage"
+      [disabled]="!hasPrevPage"
+      (click)="premierePage()"
+    >
+      Première
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasPrevPage"
+      (click)="pagePrecedente()"
+    >
+      Précédent
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasNextPage"
+      (click)="pageSuivante()"
+    >
+      Suivante
+    </button>
+    &nbsp;&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="!hasNextPage"
+      (click)="dernierePage()"
+    >
+      Dernière
+    </button>
+  </div>
   <div class="row-card">
     @for (assignment of assignments; track assignment.nom) {
-      <div class="card"  (click)="seeDetails(assignment.id)">
-        <div class="card__wrapper">
-          <div class="card___wrapper-acounts">
-
+    <div class="card" (click)="seeDetails(assignment.id)">
+      <div class="card__wrapper">
+        <div class="card___wrapper-acounts"></div>
+        <div class="card__menu">
+          <div
+            style="
+              width: 100%;
+              height: 100%;
+              border-radius: 50%;
+              overflow: hidden;
+            "
+            title="{{ assignment.nomProf }}"
+          >
+            <img
+              src="{{ environment.apiURL }}/images/{{ assignment.imageProf }}"
+              style="width: 100%; height: 100%; object-fit: cover"
+            />
           </div>
-          <div class="card__menu">
-            <div style="width: 100%; height: 100%; border-radius: 50%; overflow: hidden;" title="{{assignment.nomProf}}">
-              <img src="{{environment.apiURL}}/images/{{assignment.imageProf}}" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
-          </div>
         </div>
-        <div class="image_content">
-          <img src="{{environment.apiURL}}/images/{{assignment.imageMatiere}}" alt="image" class="image" style="width: 90%;">
-        </div>
-        <div class="card__title">{{ assignment.nom }}</div>
-        <div class="card__subtitle">
-        </div>
-        @if(assignment.rendu) {
-        <div class="card__indicator">
-          <p>note: <b style="color:#575757;">{{ assignment.note }}/20</b></p>
-          <p>rendu le {{ assignment.dateDeRendu | date:'dd MMM yyyy à hh:mm:ss' }}</p>
-        </div>
-        }
-        @else {
-          <div class="card__indicator">
-            Cet assignment n'a pas encore été rendu
-          </div>
-          }
       </div>
+      <div class="image_content">
+        <img
+          src="{{ environment.apiURL }}/images/{{ assignment.imageMatiere }}"
+          alt="image"
+          class="image"
+          style="width: 90%"
+        />
+      </div>
+      <div class="card__title">{{ assignment.nom }}</div>
+      <div class="card__subtitle"></div>
+      @if(assignment.rendu) {
+      <div class="card__indicator">
+        <p>
+          note: <b style="color: #575757">{{ assignment.note }}/20</b>
+        </p>
+        <p>
+          rendu le
+          {{ assignment.dateDeRendu | date : "dd MMM yyyy à hh:mm:ss" }}
+        </p>
+      </div>
+      } @else {
+      <div class="card__indicator">Cet assignment n'a pas encore été rendu</div>
+      }
+    </div>
     }
   </div>
 </div>
