@@ -114,6 +114,11 @@ export class AssignmentsService {
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.idUser = a.idUser;
+      nouvelAssignment.idMatiere = a.idMatiere;
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.file = a.file;
+      nouvelAssignment.remarque = a.remarque;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });

@@ -35,6 +35,7 @@ export class EditAssignmentComponent implements OnInit {
   dateDeRendu?: Date;
   remarque: string = '';
   note: number = -10;
+  errorMessage?: string;
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -49,7 +50,10 @@ export class EditAssignmentComponent implements OnInit {
   ngOnInit() {}
 
   onSaveAssignment() {
-    if (this.note < 0 || this.note > 20) return;
+    if (this.note < 0 || this.note > 20) {
+      this.errorMessage = 'note invalide';
+      return;
+    }
 
     this.assignment.remarque = this.remarque;
     this.assignment.note = this.note;

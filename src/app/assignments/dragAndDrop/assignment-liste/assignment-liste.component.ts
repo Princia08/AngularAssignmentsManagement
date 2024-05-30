@@ -237,6 +237,7 @@ export class AssignmentListeComponent implements OnInit {
         console.log(data);
         let assignments = data.assignments;
         // this.assignments = [...this.assignments, ...data.assignments];
+        this.assignments = [];
         for (let i = 0; i < assignments.length; i++) {
           this.assignments.push({
             id: assignments[i]._id,
@@ -279,6 +280,7 @@ export class AssignmentListeComponent implements OnInit {
         //this.assignmentCorige = [...this.assignmentCorige, ...data.assignments];
         let assignments = data.assignments;
         //this.assignments = [...this.assignments, ...data.assignments];
+        this.assignmentCorige = [];
         for (let i = 0; i < assignments.length; i++) {
           this.assignmentCorige.push({
             id: assignments[i]._id,
@@ -310,28 +312,33 @@ export class AssignmentListeComponent implements OnInit {
 
   pagePrecedente() {
     this.page = this.prevPage;
-    this.getAssignmentsFromService();
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
   pageSuivante() {
     this.page = this.nextPage;
-    this.getAssignmentsFromService();
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
   premierePage() {
     this.page = 1;
-    this.getAssignmentsFromService();
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
   dernierePage() {
     this.page = this.totalPages;
-    this.getAssignmentsFromService();
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
   // Pour le composant angular material paginator
   handlePageEvent(event: PageEvent) {
     this.page = event.pageIndex + 1;
     this.limit = event.pageSize;
-    this.getAssignmentsFromService();
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
   openFile(file: string) {

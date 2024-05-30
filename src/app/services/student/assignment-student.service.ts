@@ -5,27 +5,27 @@ import {Assignment} from "../../assignments/assignment.model";
 import {environment} from "../../../environments/environment";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AssignmentStudentService {
-
   url = environment.apiURL + '/assignments';
 
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
-  getAssignment(): Observable<any[]> {
+  getAssignment(page: number, limit: number): Observable<any> {
     let token = localStorage.getItem('token');
-    return this.http.get<Assignment[]>(this.url + '/me/'+token);
+    return this.http.get<Assignment[]>(
+      this.url + '/me/' + token + '?page=' + page + '&limit=' + limit
+    );
   }
 
   getAssignmentForNote(): Observable<Assignment[]> {
     let token = localStorage.getItem('token');
-    return this.http.get<Assignment[]>(this.url + '/me/'+token);
+    return this.http.get<Assignment[]>(this.url + '/me/' + token);
   }
 
-  getAssignmentDetails( id: string) : Observable<any> {
-    return this.http.get<Assignment>(this.url+'/'+id);
+  getAssignmentDetails(id: string): Observable<any> {
+    return this.http.get<Assignment>(this.url + '/' + id);
   }
 
   deleteAssignment(id: String): Observable<any> {
