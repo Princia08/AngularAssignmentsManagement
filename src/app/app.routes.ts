@@ -6,12 +6,12 @@ import { homeGuard } from './services/guard/home.guard';
 import { authGuard } from './services/guard/auth.guard';
 import { InscriptionComponent } from './authentification/inscription/inscription.component';
 import { HomeComponent } from './home/home.component';
-import {UserComponent} from "./user/user.component";
-import {AddAssignmentComponent} from "./assignments/add-assignment/add-assignment.component";
-import {StudentsComponent} from "./students/students.component";
-import {AssignmentsComponent} from "./assignments/assignments.component";
-import {AssignmentStudentComponent} from "./students/assignment-student/assignment-student.component";
-import {AssignmentStudentDetailsComponent} from "./students/assignment-student-details/assignment-student-details.component";
+import { UserComponent } from './user/user.component';
+import { AddAssignmentComponent } from './assignments/add-assignment/add-assignment.component';
+import { StudentsComponent } from './students/students.component';
+import { AssignmentsComponent } from './assignments/assignments.component';
+import { AssignmentStudentComponent } from './students/assignment-student/assignment-student.component';
+import { AssignmentStudentDetailsComponent } from './students/assignment-student-details/assignment-student-details.component';
 
 import { AssignmentListeComponent } from './assignments/dragAndDrop/assignment-liste/assignment-liste.component';
 
@@ -31,7 +31,7 @@ export const routes: Routes = [
       {
         path: 'student',
         component: StudentsComponent,
-        data: {isSidebarOpen: true}
+        data: { isSidebarOpen: true },
       },
       {
         path: 'user',
@@ -42,25 +42,24 @@ export const routes: Routes = [
         path: 'add',
         component: AddAssignmentComponent,
 
-        data: {isSidebarOpen: true}
+        data: { isSidebarOpen: true },
       },
       {
         path: 'assignment',
-        component: AssignmentsComponent,
-        data: {isSidebarOpen: true}
+        component: AssignmentListeComponent,
+        data: { isSidebarOpen: true },
       },
       {
         path: 'assignmentStudent',
         component: AssignmentStudentComponent,
-        data: {isSidebarOpen: true}
+        data: { isSidebarOpen: true },
       },
       {
         path: 'assignmentStudent/details/:id',
         component: AssignmentStudentDetailsComponent,
-        data: {isSidebarOpen: true}
-      }
-    ]
-
+        data: { isSidebarOpen: true },
+      },
+    ],
   },
 
   // { path: 'assignment/:id', component: AssignmentDetailComponent },
@@ -72,4 +71,3 @@ export const routes: Routes = [
   { path: 'assignments', component: AssignmentsComponent },
   { path: 'assignmentsDragDrop', component: AssignmentListeComponent },
 ];
-

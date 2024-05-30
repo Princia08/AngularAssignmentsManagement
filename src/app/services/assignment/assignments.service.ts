@@ -135,7 +135,7 @@ export class AssignmentsService {
   getAssignmentsCorrigerPagines(page: number, limit: number): Observable<any> {
     //get token from localstorage
     let token = localStorage.getItem('token');
-    return this.http.get<Assignment[]>(
+    return this.http.get<any>(
       this.uri +
         '/matiere/Corriger?page=' +
         page +
