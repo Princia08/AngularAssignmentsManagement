@@ -68,14 +68,6 @@ export class AppComponent implements OnInit {
         this.isMobile = false;
       }
     });
-
-    // this.loadTimeout = setTimeout(() => {
-    //   this.showAnimation();
-    //   this.animationTimeout = setTimeout(() => {
-    //     this.hideAnimation();
-    //   }, 1750);
-    // }, 0);
-
   }
 
   showAnimation(): void {
