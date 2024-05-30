@@ -1,3 +1,9 @@
+.container {
+  margin-top: -4rem;
+  padding-top: 4rem;
+  min-height: 100vh;
+}
+
 .example-container {
   width: 400px;
   max-width: 100%;
@@ -29,11 +35,16 @@
   font-size: 14px;
 }
 
+.example-box:hover {
+  width: 99%;
+  margin-left: 1px;
+}
+
 .cdk-drag-preview {
   box-sizing: border-box;
   border-radius: 4px;
   box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
-    0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  0 8px 10px 1px rgba(0, 0, 0, 0.14), 0 3px 14px 2px rgba(0, 0, 0, 0.12);
 }
 
 .cdk-drag-placeholder {
@@ -41,7 +52,7 @@
 }
 
 .cdk-drag-animating {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 1);
 }
 
 .example-box:last-child {
@@ -49,7 +60,7 @@
 }
 
 .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
-  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  transition: transform 100ms cubic-bezier(0, 0, 0.2, 0.1);
 }
 
 /* css component*/
@@ -72,15 +83,6 @@ td {
   padding: 5px;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.btnAjout {
-  align-self: flex-end;
-}
-
 .demo-table {
   width: 100%;
 }
@@ -90,34 +92,30 @@ td {
 }
 
 .example-viewport {
-  height: 400px;
-  width: 500px;
+  height: 65vh;
+  width: 95%;
   border: 1px solid black;
   overflow: auto;
+  background-image: linear-gradient(180deg, #af90ed, rgb(99, 135, 218));
+  /*background-image: linear-gradient(180deg, #79148f, rgb(68, 58, 156));*/
 }
 
 .example-item {
   height: 50px;
 }
 
-/*carde template*/
 .card {
-  width: 100%;
-  /* max-width: 290px; */
+  width: 96%;
   height: 70px;
-  background: #60529f;
-  border-radius: 20px;
+  margin-top: 1%;
+  margin-left: 2%;
+  background: rgba(40, 26, 103, 0.49);
+  border-radius: 10px;
   display: flex;
   align-items: center;
-  justify-content: left;
   backdrop-filter: blur(10px);
   transition: 0.5s ease-in-out;
 }
-
-/* .card:hover {
-  cursor: pointer;
-  transform: scale(1.05);
-} */
 
 .img {
   width: 50px;
@@ -127,16 +125,10 @@ td {
   background: linear-gradient(#d7cfcf, #9198e5);
 }
 
-.card:hover > .img {
-  transition: 0.5s ease-in-out;
-  background: linear-gradient(#9198e5, #712020);
-}
-
 .textBox {
   width: calc(100% - 90px);
   margin-left: 10px;
   color: white;
-  font-family: "Poppins" sans-serif;
 }
 
 .textContent {
@@ -157,4 +149,12 @@ td {
 .p {
   font-size: 12px;
   font-weight: lighter;
+}
+
+.note {
+  color: white;
+  padding: 0px 3px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 500;
 }

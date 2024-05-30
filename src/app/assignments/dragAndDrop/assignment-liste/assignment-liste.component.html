@@ -1,115 +1,88 @@
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
 <div class="container">
-  <p>
-    Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
-    <br />
-    Page courante : {{ page }}, nb de docs par page : {{ limit }}
-    <!-- add slider for adjusting the limit property, with angular 17 -->
-    <!-- <mat-slider min="1" max="100" step="1" thumbLabel>
-      <input
-        matSliderThumb
-        [(ngModel)]="limit"
-        (change)="
+  <div class="row">
+    <p>
+      Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
+      <br />
+      Page courante : {{ page }}, nb de docs par page : {{ limit }}
+      <!-- add slider for adjusting the limit property, with angular 17 -->
+      <mat-slider min="1" max="100" step="1" thumbLabel>
+        <input
+          matSliderThumb
+          [(ngModel)]="limit"
+          (change)="
           getAssignmentsCorrigerFromServicePourScrollInfini();
           getAssignmentsNonCorrigerFromServicePourScrollInfini()
         "
-      />
-    </mat-slider> -->
-  </p>
-</div>
-<div class="example-container">
-  <h2>A noter</h2>
-
-  <cdk-virtual-scroll-viewport
-    itemSize="50"
-    cdkDropList
-    #todoList="cdkDropList"
-    [cdkDropListData]="assignments"
-    [cdkDropListConnectedTo]="[doneList]"
-    class="example-list example-viewport"
-    (cdkDropListDropped)="drop($event)"
-  >
-    @for (item of assignments; track item) {
-    <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
-      <div class="img">
-        <img
-          src="{{ environment.apiURL }}/images/{{ item.imageMatiere }}"
-          style="width: 100%; height: 100%; object-fit: cover"
         />
-      </div>
-      <div class="textBox">
-        <div class="textContent">
-          <p class="h1" (click)="seeDetails(item.id)">{{ item.nom }}</p>
-          <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
-        </div>
-        <div class="textContent">
-          <p class="p">{{ item.remarque }}</p>
-          @if (item?.file) {
-          <div class="file">
-            <div class="file-details" (click)="openFile(item?.file)">
-              <p><mat-icon>description</mat-icon>{{ item?.file }}</p>
+      </mat-slider>
+    </p>
+  </div>
+  <div class="row">
+    <div class="col-md-6">
+      <h2>A corriger</h2>
+
+      <cdk-virtual-scroll-viewport
+        itemSize="50"
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="assignments"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-viewport"
+        (cdkDropListDropped)="drop($event)"
+      >
+        @for (item of assignments; track item) {
+          <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
+            <div class="img" (click)="seeDetails(item.id)">
+              <img
+                src="{{ environment.apiURL }}/images/{{ item.imageMatiere }}"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
             </div>
-          </div>
-          } @else {
-          <div class="file">
-            <h4>aucun fichier rattaché</h4>
-          </div>
-          }
-        </div>
-      </div>
-    </mat-list>
-    }
-  </cdk-virtual-scroll-viewport>
-</div>
-
-<div class="example-container" style="margin-left: 100px">
-  <h2>Déjà notées</h2>
-
-  <cdk-virtual-scroll-viewport
-    itemSize="50"
-    cdkDropList
-    #doneList="cdkDropList"
-    [cdkDropListData]="assignmentCorige"
-    [cdkDropListConnectedTo]="[todoList]"
-    class="example-list example-viewport"
-    (cdkDropListDropped)="drop($event)"
-    #scroller
-  >
-    @for (item of assignmentCorige; track item) {
-    <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
-      <div class="img">
-        <img
-          src="{{ environment.apiURL }}/images/{{ item.imageMatiere }}"
-          style="width: 100%; height: 100%; object-fit: cover"
-        />
-      </div>
-      <div class="textBox">
-        <div class="textContent">
-          <p class="h1" (click)="seeDetails(item.id)">{{ item.nom }}</p>
-          <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
-        </div>
-        <div class="textContent">
-          <p class="p">{{ item.remarque }}</p>
-          @if (item?.file) {
-          <div class="file">
-            <div class="file-details" (click)="openFile(item?.file)">
-              <p><mat-icon>description</mat-icon>{{ item?.file }}</p>
+            <div class="textBox">
+              <div class="textContent">
+                <p class="h1" (click)="seeDetails(item.id)">{{ item.nom }}</p>
+                <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
+              </div>
             </div>
-          </div>
-          } @else {
-          <div class="file">
-            <h4>aucun fichier rattaché</h4>
-          </div>
-          }
+          </mat-list>
+        }
+      </cdk-virtual-scroll-viewport>
+    </div>
 
-          <div>note : {{ item.note }}/20</div>
-        </div>
-      </div>
-    </mat-list>
-    }
-  </cdk-virtual-scroll-viewport>
+    <div class="col-md-6">
+      <h2>Assignments Rendus</h2>
+
+      <cdk-virtual-scroll-viewport
+        itemSize="50"
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="assignmentCorige"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="example-list example-viewport"
+        (cdkDropListDropped)="drop($event)"
+        #scroller
+      >
+        @for (item of assignmentCorige; track item) {
+          <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
+            <div class="img">
+              <img
+                src="{{ environment.apiURL }}/images/{{ item.imageMatiere }}"
+                style="width: 100%; height: 100%; object-fit: cover"
+              />
+            </div>
+            <div class="textBox">
+              <div class="textContent">
+                <p class="h1" (click)="seeDetails(item.id)">{{ item.nom }}</p>
+                <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
+              </div>
+              <div class="textContent">
+                <div class="note"  [ngStyle]="{'background-color': item.note < 15 ? 'darkred' : 'green'}">{{ item.note }}/20</div>
+              </div>
+            </div>
+          </mat-list>
+        }
+      </cdk-virtual-scroll-viewport>
+    </div>
+  </div>
+
 </div>
