@@ -18,10 +18,19 @@
             class="attribut">Professeur:</span> {{ assignment?.idMatiere.prof.prenom }} {{ assignment?.idMatiere.prof.nom }}
           </h4>
           <h4><span class="attribut">Matière:</span> {{ assignment?.idMatiere.nom }}</h4>
-          <h4><span
-            class="attribut">Date de rendu:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
-          </h4>
-          <h4><span class="attribut">Rendu:</span> {{ assignment?.rendu ? 'Oui' : 'Non' }}</h4>
+          @if (assignment.rendu) {
+            <h4><span
+              class="attribut">Date de rendu:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
+            </h4>
+            <h4><span class="attribut">Remarque:</span> {{ assignment?.remarque ? assignment?.remarque : "aucune"}}</h4>
+          }
+          @else {
+            <h4><span
+              class="attribut">Date de création:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
+            </h4>
+            <h4><span class="attribut">Rendu:</span> pas encore !</h4>
+          }
+
           @if (assignment?.rendu) {
             <h4><span class="attribut">Note:</span> {{ assignment?.note }}/20</h4>
           }
