@@ -87,7 +87,6 @@ export class AssignmentsService {
     //let pos = this.assignments.indexOf(assignment);
     //this.assignments.splice(pos, 1);
     this.logService.log(assignment.nom, 'supprimé');
-    //return of("Assignment supprimé avec succès");
     return this.http.delete(this.uri + '/' + assignment._id);
   }
 

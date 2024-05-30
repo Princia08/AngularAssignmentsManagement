@@ -6,6 +6,9 @@ import {MatIcon} from "@angular/material/icon";
 import {AssignmentStudentService} from "../../services/student/assignment-student.service";
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
+import {AuthService} from "../../services/auth/auth.service";
+import {AssignmentsService} from "../../services/assignment/assignments.service";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-assignment-student-details',
@@ -22,18 +25,25 @@ export class AssignmentStudentDetailsComponent implements OnInit {
 
   id = ''
   assignment!: any;
+  isAdmin= false;
+  message = '';
+
   protected readonly environment = environment;
 
   options: AnimationOptions = {
     path: '/assets/books-animation.json',
   };
 
-  constructor(private router: Router, private route: ActivatedRoute, private assignmentService: AssignmentStudentService) {
+  constructor(private router: Router,private authService: AuthService, private route: ActivatedRoute, private assignmentService: AssignmentStudentService) {
     this.id = this.route.snapshot.params['id']
   }
 
   ngOnInit() {
     this.loadAssignmentDetails();
+    this.authService.isAdmin().then((result) => {
+      this.isAdmin = result;
+    });
+    this.message = '';
   }
 
   showAnimation(): void {
@@ -68,5 +78,22 @@ export class AssignmentStudentDetailsComponent implements OnInit {
 
   listAssignment() {
     this.router.navigateByUrl('/home/assignmentStudent');
+  }
+
+  listAssignmentProf() {
+    this.router.navigateByUrl('/home/assignment');
+  }
+
+  delete() {
+    this.showAnimation()
+    this.assignmentService.deleteAssignment(this.id).subscribe({
+      next: res => {
+        this.message = this.assignment.nom + ' a été supprimé';
+        this.hideAnimation();
+      },
+      error: err => {
+        this.hideAnimation();
+      }
+    });
   }
 }

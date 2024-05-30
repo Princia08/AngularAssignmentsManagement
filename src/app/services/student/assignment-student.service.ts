@@ -27,4 +27,8 @@ export class AssignmentStudentService {
   getAssignmentDetails( id: string) : Observable<any> {
     return this.http.get<Assignment>(this.url+'/'+id);
   }
+
+  deleteAssignment(id: String): Observable<any> {
+    return this.http.delete(this.url + '/' + id);
+  }
 }
