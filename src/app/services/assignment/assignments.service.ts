@@ -106,25 +106,25 @@ export class AssignmentsService {
     });
   }
 
-  peuplerBDavecForkJoin(): Observable<any> {
-    let appelsVersAddAssignment: Observable<any>[] = [];
+  // peuplerBDavecForkJoin(): Observable<any> {
+  //   let appelsVersAddAssignment: Observable<any>[] = [];
 
-    bdInitialAssignments.forEach((a) => {
-      const nouvelAssignment = new Assignment();
-      nouvelAssignment.nom = a.nom;
-      nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
-      nouvelAssignment.rendu = a.rendu;
-      nouvelAssignment.idUser = a.idUser;
-      nouvelAssignment.idMatiere = a.idMatiere;
-      nouvelAssignment.note = a.note;
-      nouvelAssignment.file = a.file;
-      nouvelAssignment.remarque = a.remarque;
+  //   bdInitialAssignments.forEach((a) => {
+  //     const nouvelAssignment = new Assignment();
+  //     nouvelAssignment.nom = a.nom;
+  //     nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
+  //     nouvelAssignment.rendu = a.rendu;
+  //     nouvelAssignment.idUser = a.idUser;
+  //     nouvelAssignment.idMatiere = a.idMatiere;
+  //     nouvelAssignment.note = a.note;
+  //     nouvelAssignment.file = a.file;
+  //     nouvelAssignment.remarque = a.remarque;
 
-      appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
-    });
+  //     appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
+  //   });
 
-    return forkJoin(appelsVersAddAssignment);
-  }
+  //   return forkJoin(appelsVersAddAssignment);
+  // }
 
   getAssignmentsbyMatierePagines(
     page: number = 1,

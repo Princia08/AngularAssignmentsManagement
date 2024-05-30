@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {environment} from "../../../environments/environment";
-import {DatePipe} from "@angular/common";
+import {DatePipe, NgStyle} from "@angular/common";
 import {MatIcon} from "@angular/material/icon";
 import {AssignmentStudentService} from "../../services/student/assignment-student.service";
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
@@ -16,7 +16,8 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
   imports: [
     DatePipe,
     MatIcon,
-    LottieComponent
+    LottieComponent,
+    NgStyle
   ],
   templateUrl: './assignment-student-details.component.html',
   styleUrl: './assignment-student-details.component.css'

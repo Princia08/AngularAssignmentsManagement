@@ -32,7 +32,7 @@
           }
 
           @if (assignment?.rendu) {
-            <h4><span class="attribut">Note:</span> {{ assignment?.note }}/20</h4>
+            <h4><span class="attribut" >Note:</span> <span class="note" [ngStyle]="{'background-color': assignment?.note < 15 ? 'darkred' : 'green'}">{{ assignment?.note }}/20</span></h4>
           }
           @if (assignment?.file) {
             <div class="file">

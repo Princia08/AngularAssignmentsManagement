@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
 import { PageEvent } from '@angular/material/paginator';
+import {MatButton} from "@angular/material/button";
 
 
 @Component({
@@ -13,7 +14,8 @@ import { PageEvent } from '@angular/material/paginator';
   standalone: true,
   imports: [
     DatePipe,
-    LottieComponent
+    LottieComponent,
+    MatButton
   ],
   templateUrl: './assignment-student.component.html',
   styleUrl: './assignment-student.component.css',
@@ -59,7 +61,7 @@ export class AssignmentStudentComponent implements OnInit {
 
   loadMyAssignment() {
 this.showAnimation();
-    
+
 this.assignmentService
       .getAssignment(this.page, this.limit)
       .subscribe((data) => {
