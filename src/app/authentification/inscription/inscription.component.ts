@@ -44,7 +44,7 @@ export class InscriptionComponent implements OnInit {
   url = environment.apiURL;
 
   options: AnimationOptions = {
-    path: '/assets/book-animation.json',
+    path: '/assets/books-animation.json',
   };
 
   ngOnInit() {
