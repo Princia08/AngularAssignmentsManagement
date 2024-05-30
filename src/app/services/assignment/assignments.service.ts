@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
 import { bdInitialAssignments } from '../../shared/data';
-import {environment} from "../../../environments/environment.development";
+import { environment } from '../../../environments/environment.development';
 
 @Injectable({
   providedIn: 'root',
@@ -135,7 +135,7 @@ export class AssignmentsService {
   getAssignmentsCorrigerPagines(page: number, limit: number): Observable<any> {
     //get token from localstorage
     let token = localStorage.getItem('token');
-    return this.http.get<Assignment[]>(
+    return this.http.get<any>(
       this.uri +
         '/matiere/Corriger?page=' +
         page +

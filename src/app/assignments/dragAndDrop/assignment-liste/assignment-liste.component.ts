@@ -29,6 +29,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { AssignmentDetailComponent } from '../../assignment-detail/assignment-detail.component';
 import { EditAssignmentComponent } from '../../edit-assignment/edit-assignment.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { environment } from '../../../../environments/environment.development';
+import { MatIcon } from '@angular/material/icon';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-assignment-liste',
   standalone: true,
@@ -47,6 +50,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSliderModule,
     RenduDirective,
     MatDialogModule,
+    MatIcon,
   ],
   templateUrl: './assignment-liste.component.html',
   styleUrl: './assignment-liste.component.css',
@@ -69,8 +73,8 @@ export class AssignmentListeComponent implements OnInit {
 
   displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
 
-  assignments: Assignment[] = [];
-  assignmentCorige: Assignment[] = [];
+  assignments: any = [];
+  assignmentCorige: any = [];
 
   // pour virtual scroll infini
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
@@ -78,28 +82,30 @@ export class AssignmentListeComponent implements OnInit {
   constructor(
     private assignmentsService: AssignmentsService,
     private ngZone: NgZone,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private router: Router
   ) {}
 
   drop(event: CdkDragDrop<Assignment[]>) {
     const draggedItem = event.item.data;
     console.log('Item dragged within the same container:', draggedItem);
 
-    const dialogRef = this.dialog.open(EditAssignmentComponent, {
-      width: '250px',
-      data: { assignment: draggedItem }, // Pass the dragged item data to the dialog
-    });
-
-    dialogRef.afterClosed().subscribe((result) => {
-      if (result) {
-        // User confirmed, transfer the data
-        if (event.previousContainer === event.container) {
-          moveItemInArray(
-            event.container.data,
-            event.previousIndex,
-            event.currentIndex
-          );
-        } else {
+    // dialogRef.afterClosed().subscribe((result) => {
+    //   if (result) {
+    // User confirmed, transfer the data
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      const dialogRef = this.dialog.open(EditAssignmentComponent, {
+        width: '250px',
+        data: { assignment: draggedItem }, // Pass the dragged item data to the dialog
+      });
+      dialogRef.afterClosed().subscribe((result) => {
+        if (result) {
           transferArrayItem(
             event.previousContainer.data,
             event.container.data,
@@ -107,10 +113,12 @@ export class AssignmentListeComponent implements OnInit {
             event.currentIndex
           );
         }
-      } else {
-        // User cancelled, do nothing
-      }
-    });
+      });
+    }
+    // } else {
+    //   // User cancelled, do nothing
+    // }
+    // });
   }
 
   ngOnInit() {
@@ -188,15 +196,35 @@ export class AssignmentListeComponent implements OnInit {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
         console.log(data);
-        this.assignments = [...this.assignments, ...data.assignments];
+        let assignments = data.assignments;
+        //this.assignments = [...this.assignments, ...data.assignments];
+        for (let i = 0; i < assignments.length; i++) {
+          this.assignments.push({
+            id: assignments[i]._id,
+            nom: assignments[i].nom,
+            dateDeRendu: assignments[i].dateDeRendu,
+            rendu: assignments[i].rendu,
+            note: assignments[i].note,
+
+            nomMatiere: assignments[i].idMatiere?.nom,
+            imageMatiere: assignments[i].idMatiere?.image,
+
+            nomProf:
+              assignments[i].idMatiere?.prof?.prenom +
+              ' ' +
+              assignments[i].idMatiere?.prof?.nom,
+            prenomProf: assignments[i].idMatiere?.prof?.prenom,
+            imageProf: assignments[i].idMatiere?.prof?.image,
+          });
+        }
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
         this.nextPage = data.nextPage;
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
+        console.log(this.totalDocs);
       });
-    console.log('Requête envoyée');
   }
 
   getAssignmentsNonCorrigerFromServicePourScrollInfini() {
@@ -207,13 +235,35 @@ export class AssignmentListeComponent implements OnInit {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
         console.log(data);
-        this.assignments = [...this.assignments, ...data.assignments];
+        let assignments = data.assignments;
+        // this.assignments = [...this.assignments, ...data.assignments];
+        for (let i = 0; i < assignments.length; i++) {
+          this.assignments.push({
+            id: assignments[i]._id,
+            nom: assignments[i].nom,
+            dateDeRendu: assignments[i].dateDeRendu,
+            rendu: assignments[i].rendu,
+            note: assignments[i].note,
+            file: assignments[i].file,
+            nomMatiere: assignments[i].idMatiere?.nom,
+            imageMatiere: assignments[i].idMatiere?.image,
+
+            nomProf:
+              assignments[i].idMatiere?.prof?.prenom +
+              ' ' +
+              assignments[i].idMatiere?.prof?.nom,
+            prenomProf: assignments[i].idMatiere?.prof?.prenom,
+            imageProf: assignments[i].idMatiere?.prof?.image,
+          });
+        }
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
         this.nextPage = data.nextPage;
         this.prevPage = data.prevPage;
         this.hasNextPage = data.hasNextPage;
         this.hasPrevPage = data.hasPrevPage;
+
+        console.log(this.totalDocs);
       });
     console.log('Requête envoyée');
   }
@@ -226,7 +276,28 @@ export class AssignmentListeComponent implements OnInit {
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
         console.log(data);
-        this.assignmentCorige = [...this.assignmentCorige, ...data.assignments];
+        //this.assignmentCorige = [...this.assignmentCorige, ...data.assignments];
+        let assignments = data.assignments;
+        //this.assignments = [...this.assignments, ...data.assignments];
+        for (let i = 0; i < assignments.length; i++) {
+          this.assignmentCorige.push({
+            id: assignments[i]._id,
+            nom: assignments[i].nom,
+            dateDeRendu: assignments[i].dateDeRendu,
+            rendu: assignments[i].rendu,
+            note: assignments[i].note,
+            file: assignments[i].file,
+            nomMatiere: assignments[i].idMatiere?.nom,
+            imageMatiere: assignments[i].idMatiere?.image,
+
+            nomProf:
+              assignments[i].idMatiere?.prof?.prenom +
+              ' ' +
+              assignments[i].idMatiere?.prof?.nom,
+            prenomProf: assignments[i].idMatiere?.prof?.prenom,
+            imageProf: assignments[i].idMatiere?.prof?.image,
+          });
+        }
         this.totalDocs = data.totalDocs;
         this.totalPages = data.totalPages;
         this.nextPage = data.nextPage;
@@ -262,4 +333,13 @@ export class AssignmentListeComponent implements OnInit {
     this.limit = event.pageSize;
     this.getAssignmentsFromService();
   }
+
+  openFile(file: string) {
+    window.open(`${environment.apiURL}/images/${file}`, '_blank');
+  }
+
+  seeDetails(id: string) {
+    this.router.navigate(['/home/assignmentStudent/details', id]);
+  }
+  protected readonly environment = environment;
 }

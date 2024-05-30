@@ -8,6 +8,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { Assignment } from '../assignment.model';
 import { AssignmentsService } from '../../services/assignment/assignments.service';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-edit-assignment',
@@ -43,13 +49,13 @@ export class EditAssignmentComponent implements OnInit {
   ngOnInit() {}
 
   onSaveAssignment() {
-    if (this.note < 0) return;
+    if (this.note < 0 || this.note > 20) return;
 
-    // this.assignment.nom = this.nomAssignment;
-    // this.assignment.dateDeRendu = this.dateDeRendu;
     this.assignment.remarque = this.remarque;
     this.assignment.note = this.note;
     this.assignment.rendu = true;
+    this.assignment.dateDeRendu = new Date();
+    console.log(this.assignment);
     this.assignmentsService.updateAssignment(this.assignment).subscribe(
       (message) => {
         console.log(message);
