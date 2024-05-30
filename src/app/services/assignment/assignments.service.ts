@@ -6,7 +6,7 @@ import { LoggingService } from '../../shared/log/logging.service';
 import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
-import { bdInitialAssignments } from '../../shared/data';
+import { bdInitialAssignments } from '../../shared/data1';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({
@@ -115,6 +115,11 @@ export class AssignmentsService {
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.idUser = a.idUser;
+      nouvelAssignment.idMatiere = a.idMatiere;
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.file = a.file;
+      nouvelAssignment.remarque = a.remarque;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });

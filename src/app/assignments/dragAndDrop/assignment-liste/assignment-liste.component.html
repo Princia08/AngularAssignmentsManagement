@@ -9,7 +9,7 @@
     <br />
     Page courante : {{ page }}, nb de docs par page : {{ limit }}
     <!-- add slider for adjusting the limit property, with angular 17 -->
-    <!-- <mat-slider min="1" max="100" step="1" thumbLabel>
+    <mat-slider min="1" max="100" step="1" thumbLabel>
       <input
         matSliderThumb
         [(ngModel)]="limit"
@@ -18,8 +18,46 @@
           getAssignmentsNonCorrigerFromServicePourScrollInfini()
         "
       />
-    </mat-slider> -->
+    </mat-slider>
   </p>
+</div>
+<div>
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!hasPrevPage"
+    [disabled]="!hasPrevPage"
+    (click)="premierePage()"
+  >
+    Première
+  </button>
+  &nbsp;&nbsp;&nbsp;
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!hasPrevPage"
+    (click)="pagePrecedente()"
+  >
+    Précédent
+  </button>
+  &nbsp;&nbsp;&nbsp;
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!hasNextPage"
+    (click)="pageSuivante()"
+  >
+    Suivante
+  </button>
+  &nbsp;&nbsp;&nbsp;
+  <button
+    mat-raised-button
+    color="primary"
+    [disabled]="!hasNextPage"
+    (click)="dernierePage()"
+  >
+    Dernière
+  </button>
 </div>
 <div class="example-container">
   <h2>A noter</h2>
@@ -47,7 +85,6 @@
           <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
         </div>
         <div class="textContent">
-          <p class="p">{{ item.remarque }}</p>
           @if (item?.file) {
           <div class="file">
             <div class="file-details" (click)="openFile(item?.file)">
