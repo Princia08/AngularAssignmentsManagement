@@ -1,17 +1,12 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '../auth/auth.service';
 
 export const homeGuard: CanActivateFn = async (route, state) => {
-
-  // injection du service d'authentification
-  const authService = inject(AuthService);
   // injection du router
   const router = inject(Router);
 
   // lorsque l'user se connecte, on vérifie le token du localStorage
   if(localStorage.getItem('token')) {
-    let admin =await authService.isAdmin()
       return true;
   }
   else {
