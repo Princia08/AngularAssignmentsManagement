@@ -27,11 +27,6 @@ export class AssignmentDetailComponent implements OnInit {
               private router:Router) { }
 
   ngOnInit() {
-    // Recuperation des query params (ce qui suit le ? dans l'url)
-    console.log(this.route.snapshot.queryParams);
-    // Recuperation des fragment (ce qui suit le # dans l'url)
-    console.log(this.route.snapshot.fragment);
-
     // On recupere l'id de l'assignment dans l'URL à l'aide de ActivatedRoute
     const id = this.route.snapshot.params['id'];
     // On utilise le service pour récupérer l'assignment avec cet id
@@ -47,7 +42,6 @@ export class AssignmentDetailComponent implements OnInit {
       this.assignmentTransmis.rendu = true;
       this.assignmentsService.updateAssignment(this.assignmentTransmis)
       .subscribe(message => {
-        console.log(message);
         // on navigue vers la liste des assignments
         this.router.navigate(['/home']);
       });

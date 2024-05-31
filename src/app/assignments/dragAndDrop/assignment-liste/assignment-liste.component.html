@@ -4,61 +4,99 @@
 
 <div class="container">
   <div class="row" style="margin-bottom: 2%">
-    <p>
-      Nb documents : {{ totalDocs }}, nbPages : {{ totalPages }}
-      <br />
-      Page courante : {{ page }}, nb de docs par page : {{ limit }}
-      <!-- add slider for adjusting the limit property, with angular 17 -->
-      <mat-slider min="1" max="100" step="1" thumbLabel>
-        <input
-          matSliderThumb
-          [(ngModel)]="limit"
-          (change)="
+
+    @if (!recherche) {
+      <div class="top">
+        <div class="pagination-top">
+          <p>Nombre de pages : {{ totalPages }}, page courante : {{ page }}</p>
+          <p>Nombre total de mes assignments: <span style="color: #3f50b4"><b>{{ totalDocs }}</b></span></p>
+        </div>
+        <p>
+          Nombre d'assignments par page : {{ limit }}
+          <!-- add slider for adjusting the limit property, with angular 17 -->
+          <mat-slider min="1" max="100" step="1" thumbLabel>
+            <input
+              matSliderThumb
+              [(ngModel)]="limit"
+              (change)="
           getAssignmentsCorrigerFromServicePourScrollInfini();
           getAssignmentsNonCorrigerFromServicePourScrollInfini()
         "
-        />
-      </mat-slider>
-    </p>
-    <div>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!hasPrevPage"
-        [disabled]="!hasPrevPage"
-        (click)="premierePage()"
-      >
-        Première
-      </button>
-      &nbsp;&nbsp;&nbsp;
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!hasPrevPage"
-        (click)="pagePrecedente()"
-      >
-        Précédent
-      </button>
-      &nbsp;&nbsp;&nbsp;
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!hasNextPage"
-        (click)="pageSuivante()"
-      >
-        Suivante
-      </button>
-      &nbsp;&nbsp;&nbsp;
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="!hasNextPage"
-        (click)="dernierePage()"
-      >
-        Dernière
-      </button>
-    </div>
+            />
+          </mat-slider>
+        </p>
+
+        <div>
+          <button
+            mat-raised-button
+            color="primary"
+            class="small-button"
+            [disabled]="!hasPrevPage"
+            [disabled]="!hasPrevPage"
+            (click)="premierePage()"
+          >
+            Première
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            mat-raised-button
+            class="small-button"
+            color="primary"
+            [disabled]="!hasPrevPage"
+            (click)="pagePrecedente()"
+          >
+            Précédent
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            mat-raised-button
+            class="small-button"
+            color="primary"
+            [disabled]="!hasNextPage"
+            (click)="pageSuivante()"
+          >
+            Suivante
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            mat-raised-button
+            class="small-button"
+            color="primary"
+            [disabled]="!hasNextPage"
+            (click)="dernierePage()"
+          >
+            Dernière
+          </button>
+          &nbsp;&nbsp;&nbsp;
+          <button
+            mat-raised-button
+            class="small-button"
+            color="primary"
+            (click)="rechercher()"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+        </div>
+
+      </div>
+    } @else {
+      <div class="recherche">
+
+        <button
+          mat-raised-button
+          color="primary"
+          class="small-button"
+          (click)="pagination()"
+        >
+          Pagination
+        </button>
+        <br>
+        <input type="text" placeholder="Search..." [(ngModel)]="searchQuery" (input)="filterList()"/>
+
+      </div>
+    }
   </div>
+
   <div class="row">
     <div class="col-md-6">
       <h2>A corriger</h2>
@@ -72,7 +110,7 @@
         class="example-viewport"
         (cdkDropListDropped)="drop($event)"
       >
-        @for (item of assignments; track item) {
+        @for (item of (recherche && searchQuery) ? filteredAssignments : assignments ; track item) {
           <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
             <div class="img" (click)="seeDetails(item.id)">
               <img
@@ -103,7 +141,7 @@
         (cdkDropListDropped)="drop($event)"
         #scroller
       >
-        @for (item of assignmentCorige; track item) {
+        @for (item of (recherche && searchQuery) ? filteredAssignmentsCorrige : assignmentCorige; track item) {
           <mat-list class="example-box card">
             <div class="img">
               <img
@@ -118,7 +156,9 @@
                 <span class="span">{{ item.dateDeRendu | date : "dd/MM/yy" }}</span>
               </div>
               <div class="textContent">
-                <div class="note"  [ngStyle]="{'background-color': item.note < 15 ? 'darkred' : 'green'}">{{ item.note }}/20</div>
+                <div class="note" [ngStyle]="{'background-color': item.note < 15 ? 'darkred' : 'green'}">{{ item.note }}
+                  /20
+                </div>
               </div>
             </div>
           </mat-list>

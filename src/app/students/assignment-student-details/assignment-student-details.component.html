@@ -14,17 +14,24 @@
         </div>
 
         <div class="details">
-          <h4><span
-            class="attribut">Professeur:</span> {{ assignment?.idMatiere.prof.prenom }} {{ assignment?.idMatiere.prof.nom }}
-          </h4>
+          @if (!isAdmin) {
+            <h4><span
+              class="attribut">Professeur:</span> {{ assignment?.idMatiere.prof.prenom }} {{ assignment?.idMatiere.prof.nom }}
+            </h4>
+          }
+          @else {
+            <h4><span
+              class="attribut">Elève:</span> {{ assignment?.idUser.prenom }} {{ assignment?.idUser.nom }}
+            </h4>
+          }
           <h4><span class="attribut">Matière:</span> {{ assignment?.idMatiere.nom }}</h4>
-          @if (assignment.rendu) {
+          @if (assignment?.rendu) {
             <h4><span
               class="attribut">Date de rendu:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
             </h4>
-            <h4><span class="attribut">Remarque:</span> {{ assignment?.remarque ? assignment?.remarque : "aucune"}}</h4>
-          }
-          @else {
+            <h4><span class="attribut">Remarque:</span> {{ assignment?.remarque ? assignment?.remarque : "aucune" }}
+            </h4>
+          } @else {
             <h4><span
               class="attribut">Date de création:</span> {{ assignment?.dateDeRendu | date: 'dd MMM yyyy à hh:mm:ss' }}
             </h4>
@@ -32,7 +39,9 @@
           }
 
           @if (assignment?.rendu) {
-            <h4><span class="attribut" >Note:</span> <span class="note" [ngStyle]="{'background-color': assignment?.note < 15 ? 'darkred' : 'green'}">{{ assignment?.note }}/20</span></h4>
+            <h4><span class="attribut">Note:</span> <span class="note"
+                                                          [ngStyle]="{'background-color': assignment?.note < 15 ? 'darkred' : 'green'}">{{ assignment?.note }}
+              /20</span></h4>
           }
           @if (assignment?.file) {
             <div class="file">

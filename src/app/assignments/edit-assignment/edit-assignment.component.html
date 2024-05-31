@@ -1,6 +1,6 @@
 @if(assignment) {
 <div class="container">
-  <h1>note et remarque {{ assignment.nom }}</h1>
+  <h1 style="text-align: center">Corriger <b>{{ assignment.nom }}</b></h1>
   <form
     ngForm
     class="form"
@@ -12,7 +12,7 @@
         class="input"
         type="number"
         step="0.01"
-        placeholder="la note"
+        placeholder="note"
         [(ngModel)]="note"
         name="assignment-name"
       />
@@ -30,6 +30,7 @@
       mat-raised-button
       color="primary"
       [disabled]="!nomAssignment || !dateDeRendu"
+      style="margin-top: 25px"
     >
       Sauver
     </button>

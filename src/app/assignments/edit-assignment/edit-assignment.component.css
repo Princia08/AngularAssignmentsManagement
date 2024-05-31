@@ -1,8 +1,15 @@
+.container {
+  height: 95%;
+  padding: 20px 20px;
+  background-color: #efefef;
+}
+
 .form {
   display: flex;
   flex-direction: column;
   margin: 5px;
   height: auto;
+  padding: 20px 20px;
 }
 
 form .inputFile {
@@ -24,7 +31,7 @@ form .input {
   border: none;
   padding: 15px 15px;
   border-radius: 10px;
-  box-shadow: #dad6ff 0 8px 8px -5px;
+  box-shadow: #8076d5 0 8px 8px -5px;
   border-inline: 2px solid transparent;
   margin-bottom: 10px;
 }

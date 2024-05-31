@@ -74,11 +74,9 @@ export class AssignmentListeComponent implements OnInit {
   prevPage!: number;
   hasNextPage!: boolean;
   hasPrevPage!: boolean;
-
-  displayedColumns: string[] = ['nom', 'dateDeRendu', 'rendu'];
-
   assignments: any = [];
   assignmentCorige: any = [];
+  recherche = false;
 
   options: AnimationOptions = {
     path: '/assets/books-animation.json',
@@ -97,11 +95,6 @@ export class AssignmentListeComponent implements OnInit {
 
   drop(event: CdkDragDrop<Assignment[]>) {
     const draggedItem = event.item.data;
-    console.log('Item dragged within the same container:', draggedItem);
-
-    // dialogRef.afterClosed().subscribe((result) => {
-    //   if (result) {
-    // User confirmed, transfer the data
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -110,8 +103,8 @@ export class AssignmentListeComponent implements OnInit {
       );
     } else {
       const dialogRef = this.dialog.open(EditAssignmentComponent, {
-        width: '250px',
-        data: {assignment: draggedItem}, // Pass the dragged item data to the dialog
+        width: '300px',
+        data: {assignment: draggedItem},
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
@@ -124,20 +117,38 @@ export class AssignmentListeComponent implements OnInit {
         }
       });
     }
-    // } else {
-    //   // User cancelled, do nothing
-    // }
-    // });
   }
 
   ngOnInit() {
-    console.log('ngOnInit assignments, appelée AVANT affichage du composant');
-    //this.getAssignmentsFromServicePourScrollInfini();
-    //this.getAssignmentsFromService();
-    this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
+    this.getAssignmentsNonCorrigerFromServicePourScrollInfini();
     this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
+  rechercher() {
+    this.recherche = true;
+  }
+
+  pagination() {
+    this.recherche = false;
+  }
+
+  searchQuery = '';
+  filteredAssignments = [...this.assignments];
+  filteredAssignmentsCorrige = [...this.assignmentCorige];
+
+  // filtrer par nom assignment
+  filterList() {
+    const query = this.searchQuery.toLowerCase();
+    let list: Assignment[] = this.assignments;
+    let list2: Assignment[] = this.assignmentCorige;
+
+    this.filteredAssignments = list.filter(assignment =>
+      assignment.nom.toLowerCase().includes(query)
+    );
+    this.filteredAssignmentsCorrige = list2.filter(assignment =>
+      assignment.nom.toLowerCase().includes(query)
+    );
+  }
 
   showAnimation(): void {
     const animationContainer = document.querySelector('.animation-container') as HTMLElement;
