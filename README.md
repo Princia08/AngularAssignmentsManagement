@@ -109,8 +109,10 @@ Pour déconnecter et se reconnecter avec un autre compte, cliquer sur "déconnex
 
 ### Fonctionnalités Interactives 🎮
 
-- **Application interactive :**
+- **Un bon design: application interactive :**
   - **Loader :** Utilisation d'un loader pour les chargements de pages et de données.
+  - ![image](https://github.com/Princia08/AngularAssignmentsManagement/assets/80781644/2b0c2586-7d1a-48f5-9ffa-cbc016ab31d7)
+
   - **Ajout d'animations :** Intégration d'animations (ex : SVG, loader sous forme de livre) pour rendre l'application plus attrayante et engageante.
   - **Interface utilisateur améliorée :** Conception d'une interface intuitive et bien pensée pour rendre l'utilisation de l'application plus agréable.
   - **Bonne expérience utilisateur :** L'application est facile à utiliser et à naviguer, permettant aux utilisateurs d'accomplir leurs tâches plus rapidement et efficacement.
