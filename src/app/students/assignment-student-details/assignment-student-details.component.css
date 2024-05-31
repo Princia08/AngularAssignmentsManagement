@@ -24,6 +24,7 @@
   color: rgb(102, 86, 163);
   text-transform: capitalize;
   margin-top: 2%;
+  line-height: 4rem;
 }
 
 .details {
