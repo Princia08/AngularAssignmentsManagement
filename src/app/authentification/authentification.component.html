@@ -2,6 +2,8 @@
   <ng-lottie width="250px" height="250px" [options]="options" (animationCreated)="animationCreated($event)"/>
 </div>
 
+  <mat-icon color="primary" style="cursor: pointer" (click)="openFile('auth.txt')">description</mat-icon>
+
 <div class="container">
   <div class="heading">Connectez-vous !</div>
   <form [formGroup]="userForm" >

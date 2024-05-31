@@ -9,17 +9,20 @@ import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
 
 import { RiveModule } from 'ng-rive';
+import {MatIcon} from "@angular/material/icon";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-authentification',
   standalone: true,
-  imports: [
-    RiveModule,
-    CommonModule,
-    ReactiveFormsModule,
-    RouterOutlet,
-    LottieComponent
-  ],
+    imports: [
+        RiveModule,
+        CommonModule,
+        ReactiveFormsModule,
+        RouterOutlet,
+        LottieComponent,
+        MatIcon
+    ],
   providers: [User],
   templateUrl: './authentification.component.html',
   styleUrl: './authentification.component.css',
@@ -85,5 +88,9 @@ export class AuthentificationComponent implements OnInit{
 
       },
     })
+  }
+
+  openFile(file: string) {
+    window.open(`${environment.apiURL}/images/${file}`, '_blank');
   }
 }
