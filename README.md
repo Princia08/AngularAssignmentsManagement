@@ -6,6 +6,11 @@
 
 Cette application permet de gérer les assignments pour les étudiants et les professeurs. Les étudiants peuvent soumettre leurs assignments en sélectionnant le titre, la matière et en joignant un fichier si nécessaire. Les professeurs, agissant en tant qu'administrateurs, peuvent consulter ces assignments, les marquer comme rendus et leur attribuer une note et des remarques.
 
+## Contribution
+
+- **29 - RAMAROSON Sandy Princia** : Partie étudiant
+- **31 - RAMIANDRISOA Rantonantenaina Steve** : Partie Professeur
+
 ## Installation
 
 ### Prérequis
@@ -60,9 +65,6 @@ Cette application permet de gérer les assignments pour les étudiants et les pr
 ### Identifiants de connexion
 
 #### Admin/Professeurs :
-
-- **Email :** gregorygally@gmail.com
-- **Mot de passe :** gregory123
 
 - **Email :** amosse123@gmail.com
 - **Mot de passe :** amosse123
