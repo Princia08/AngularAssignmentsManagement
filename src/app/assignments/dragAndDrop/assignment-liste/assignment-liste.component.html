@@ -104,7 +104,7 @@
         #scroller
       >
         @for (item of assignmentCorige; track item) {
-          <mat-list class="example-box card" cdkDrag [cdkDragData]="item">
+          <mat-list class="example-box card">
             <div class="img">
               <img
                 src="{{ environment.apiURL }}/images/{{ item.imageMatiere }}"

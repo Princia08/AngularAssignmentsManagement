@@ -7,6 +7,8 @@ import {Router} from "@angular/router";
 import {AssignmentStudentService} from "../services/student/assignment-student.service";
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
 import {AnimationItem} from "lottie-web";
+import {count} from "rxjs";
+import {Assignment} from "../assignments/assignment.model";
 
 @Component({
   selector: 'app-students',
@@ -29,7 +31,7 @@ export class StudentsComponent implements OnInit {
     path: '/assets/books-animation.json',
   };
 
-  constructor(private router: Router, private userService: UserService, private assignmentService : AssignmentStudentService) {
+  constructor(private router: Router, private userService: UserService, private assignmentService: AssignmentStudentService) {
   }
 
   ngOnInit() {
@@ -59,22 +61,23 @@ export class StudentsComponent implements OnInit {
     this.showAnimation();
     this.userService.getUser().subscribe((user) => {
       this.user = user;
-      this.urlPicture= environment.apiURL + "/images/" + this.user?.image;
+      this.urlPicture = environment.apiURL + "/images/" + this.user?.image;
       this.hideAnimation();
     });
   }
 
   loadMyAssignment() {
     this.assignmentService.getAssignmentForNote().subscribe((assignment) => {
-      this.numberAssignment = assignment.length;
+      this.numberAssignment = assignment.totalDocs;
+      let list: Assignment[] = assignment.assignments;
 
-      // get the maximum note
-      const notes = assignment
-        .map(assignment => assignment.note)
-        .filter(note => note !== undefined && note !== 0);
-      this.maxNote = Math.max(...notes);
-      this.minNote = Math.min(...notes);
-
+      if (this.numberAssignment != 0) {
+        const notes = list
+          .map(assignment => assignment.note)
+          .filter(note => note !== undefined && note !== 0);
+        this.maxNote = Math.max(...notes);
+        this.minNote = Math.min(...notes);
+      }
     });
 
   }

@@ -19,7 +19,7 @@ export class AssignmentStudentService {
     );
   }
 
-  getAssignmentForNote(): Observable<Assignment[]> {
+  getAssignmentForNote(): Observable<any> {
     let token = localStorage.getItem('token');
     return this.http.get<Assignment[]>(this.url + '/me/' + token);
   }
