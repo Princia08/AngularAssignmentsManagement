@@ -29,7 +29,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {AssignmentDetailComponent} from '../../assignment-detail/assignment-detail.component';
 import {EditAssignmentComponent} from '../../edit-assignment/edit-assignment.component';
 import {MatDialogModule} from '@angular/material/dialog';
-import {environment} from '../../../../environments/environment.development';
+import {environment} from '../../../../environments/environment';
 import {MatIcon} from '@angular/material/icon';
 import {Router} from '@angular/router';
 import {AnimationOptions, LottieComponent} from "ngx-lottie";
