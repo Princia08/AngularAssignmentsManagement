@@ -6,7 +6,7 @@ import { LoggingService } from '../../shared/log/logging.service';
 import { HttpClient } from '@angular/common/http';
 
 // importation des données de test
-import { bdInitialAssignments } from '../../shared/data1';
+import { bdInitialAssignments } from '../../shared/data2';
 import { environment } from '../../../environments/environment.development';
 
 @Injectable({

@@ -1,21 +1,21 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Route, Router, RouterOutlet} from '@angular/router';
-import {RouterLink} from '@angular/router';
-import {MatButtonModule} from '@angular/material/button';
-import {MatIconModule} from '@angular/material/icon';
-import {MatDividerModule} from '@angular/material/divider';
-import {MatSlideToggleModule} from '@angular/material/slide-toggle';
-import {AssignmentsComponent} from './assignments/assignments.component';
-import {MatSidenav, MatSidenavModule} from '@angular/material/sidenav';
-import {MatToolbarModule} from '@angular/material/toolbar';
-import {MatListModule} from '@angular/material/list';
-import {BreakpointObserver} from '@angular/cdk/layout';
-import {ViewChild} from '@angular/core';
-import {AuthService} from './services/auth/auth.service';
-import {AssignmentsService} from './services/assignment/assignments.service';
-import {AnimationItem} from 'lottie-web';
-import {AnimationOptions, LottieComponent} from 'ngx-lottie';
-import {interval} from "rxjs";
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Route, Router, RouterOutlet } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { AssignmentsComponent } from './assignments/assignments.component';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatListModule } from '@angular/material/list';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { ViewChild } from '@angular/core';
+import { AuthService } from './services/auth/auth.service';
+import { AssignmentsService } from './services/assignment/assignments.service';
+import { AnimationItem } from 'lottie-web';
+import { AnimationOptions, LottieComponent } from 'ngx-lottie';
+import { interval } from 'rxjs';
 import { MatDialogModule } from '@angular/material/dialog';
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
 @Component({
@@ -63,6 +63,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    //this.genererDonneesDeTest();
     this.observer.observe(['(max-width: 800px)']).subscribe((screenSize) => {
       if (screenSize.matches) {
         this.isMobile = true;
@@ -77,7 +78,6 @@ export class AppComponent implements OnInit, OnDestroy {
         this.hideAnimation();
       }, 1750);
     }, 0);
-
   }
 
   ngOnDestroy(): void {
@@ -86,14 +86,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   showAnimation(): void {
-    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    const animationContainer = document.querySelector(
+      '.animation-container'
+    ) as HTMLElement;
     if (animationContainer) {
       animationContainer.style.display = 'flex';
     }
   }
 
   hideAnimation(): void {
-    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    const animationContainer = document.querySelector(
+      '.animation-container'
+    ) as HTMLElement;
     if (animationContainer) {
       animationContainer.style.display = 'none';
     }
