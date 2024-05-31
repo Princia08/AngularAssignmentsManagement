@@ -5,33 +5,36 @@ import {
   CdkDrag,
   CdkDropList,
 } from '@angular/cdk/drag-drop';
-import { AssignmentsService } from '../../../services/assignment/assignments.service';
-import { Assignment } from '../../assignment.model';
-import { filter, map, pairwise, tap, throttleTime } from 'rxjs';
+import {AssignmentsService} from '../../../services/assignment/assignments.service';
+import {Assignment} from '../../assignment.model';
+import {filter, map, pairwise, tap, throttleTime} from 'rxjs';
 
-import { Component, OnInit, ViewChild, NgZone } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {Component, OnInit, ViewChild, NgZone} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
 import {
   CdkVirtualScrollViewport,
   ScrollingModule,
 } from '@angular/cdk/scrolling';
 
-import { MatListModule } from '@angular/material/list';
-import { MatButtonModule } from '@angular/material/button';
-import { MatSliderModule } from '@angular/material/slider';
-import { MatTable, MatTableModule } from '@angular/material/table';
-import { PageEvent, MatPaginatorModule } from '@angular/material/paginator';
+import {MatListModule} from '@angular/material/list';
+import {MatButtonModule} from '@angular/material/button';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatTable, MatTableModule} from '@angular/material/table';
+import {PageEvent, MatPaginatorModule} from '@angular/material/paginator';
 
-import { RenduDirective } from '../../../shared/rendu.directive';
-import { RouterLink } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
-import { AssignmentDetailComponent } from '../../assignment-detail/assignment-detail.component';
-import { EditAssignmentComponent } from '../../edit-assignment/edit-assignment.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { environment } from '../../../../environments/environment.development';
-import { MatIcon } from '@angular/material/icon';
-import { Router } from '@angular/router';
+import {RenduDirective} from '../../../shared/rendu.directive';
+import {RouterLink} from '@angular/router';
+import {MatDialog} from '@angular/material/dialog';
+import {AssignmentDetailComponent} from '../../assignment-detail/assignment-detail.component';
+import {EditAssignmentComponent} from '../../edit-assignment/edit-assignment.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {environment} from '../../../../environments/environment.development';
+import {MatIcon} from '@angular/material/icon';
+import {Router} from '@angular/router';
+import {AnimationOptions, LottieComponent} from "ngx-lottie";
+import {AnimationItem} from "lottie-web";
+
 @Component({
   selector: 'app-assignment-liste',
   standalone: true,
@@ -51,6 +54,7 @@ import { Router } from '@angular/router';
     RenduDirective,
     MatDialogModule,
     MatIcon,
+    LottieComponent,
   ],
   templateUrl: './assignment-liste.component.html',
   styleUrl: './assignment-liste.component.css',
@@ -76,6 +80,10 @@ export class AssignmentListeComponent implements OnInit {
   assignments: any = [];
   assignmentCorige: any = [];
 
+  options: AnimationOptions = {
+    path: '/assets/books-animation.json',
+  };
+
   // pour virtual scroll infini
   @ViewChild('scroller') scroller!: CdkVirtualScrollViewport;
 
@@ -84,7 +92,8 @@ export class AssignmentListeComponent implements OnInit {
     private ngZone: NgZone,
     private dialog: MatDialog,
     private router: Router
-  ) {}
+  ) {
+  }
 
   drop(event: CdkDragDrop<Assignment[]>) {
     const draggedItem = event.item.data;
@@ -102,7 +111,7 @@ export class AssignmentListeComponent implements OnInit {
     } else {
       const dialogRef = this.dialog.open(EditAssignmentComponent, {
         width: '250px',
-        data: { assignment: draggedItem }, // Pass the dragged item data to the dialog
+        data: {assignment: draggedItem}, // Pass the dragged item data to the dialog
       });
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
@@ -129,46 +138,24 @@ export class AssignmentListeComponent implements OnInit {
     this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
-  // ngAfterViewInit() {
-  //   console.log(' ----- after view init ----');
 
-  //   if (!this.scroller) return;
+  showAnimation(): void {
+    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    if (animationContainer) {
+      animationContainer.style.display = 'flex';
+    }
+  }
 
-  //   // on s'abonne à l'évènement scroll du virtual scroller
-  //   this.scroller
-  //     .elementScrolled()
-  //     .pipe(
-  //       tap(() => {
-  //         //const dist = this.scroller.measureScrollOffset('bottom');
-  //         /*console.log(
-  //           'dans le tap, distance par rapport au bas de la fenêtre = ' + dist
-  //         );*/
-  //       }),
-  //       map((event) => {
-  //         return this.scroller.measureScrollOffset('bottom');
-  //       }),
-  //       pairwise(),
-  //       filter(([y1, y2]) => {
-  //         return y2 < y1 && y2 < 100;
-  //       }),
-  //       // Pour n'envoyer des requêtes que toutes les 200ms
-  //       throttleTime(200)
-  //     )
-  //     .subscribe(() => {
-  //       // On ne rentre que si on scrolle vers le bas, que si
-  //       // la distance de la scrollbar est < 100 pixels et que
-  //       // toutes les 200 ms
-  //       console.log('On demande de nouveaux assignments');
-  //       // on va faire une requête pour demander les assignments suivants
-  //       // et on va concatener le resultat au tableau des assignments courants
-  //       console.log('je CHARGE DE NOUVELLES DONNEES page = ' + this.page);
-  //       this.ngZone.run(() => {
-  //         if (!this.hasNextPage) return;
-  //         this.page = this.nextPage;
-  //         this.getAssignmentsFromServicePourScrollInfini();
-  //       });
-  //     });
-  // }
+  hideAnimation(): void {
+    const animationContainer = document.querySelector('.animation-container') as HTMLElement;
+    if (animationContainer) {
+      animationContainer.style.display = 'none';
+    }
+  }
+
+  animationCreated(animationItem: AnimationItem): void {
+    console.log(animationItem);
+  }
 
   getAssignmentsFromService() {
     // on récupère les assignments depuis le service
@@ -188,6 +175,7 @@ export class AssignmentListeComponent implements OnInit {
       });
     console.log('Requête envoyée');
   }
+
   getAssignmentsFromServicePourScrollInfini() {
     // on récupère les assignments depuis le service
     this.assignmentsService
@@ -270,13 +258,19 @@ export class AssignmentListeComponent implements OnInit {
   }
 
   getAssignmentsCorrigerFromServicePourScrollInfini() {
+
+    this.showAnimation();
+
     // on récupère les assignments depuis le service
     this.assignmentsService
       .getAssignmentsCorrigerPagines(this.page, this.limit)
       .subscribe((data) => {
+
         // les données arrivent ici au bout d'un certain temps
         console.log('Données arrivées');
-        console.log(data);
+
+        this.hideAnimation();
+
         //this.assignmentCorige = [...this.assignmentCorige, ...data.assignments];
         let assignments = data.assignments;
         //this.assignments = [...this.assignments, ...data.assignments];
@@ -315,6 +309,7 @@ export class AssignmentListeComponent implements OnInit {
     this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
     this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
+
   pageSuivante() {
     this.page = this.nextPage;
     this.getAssignmentsNonCorrigerFromServicePourScrollInfini(); //
@@ -341,12 +336,9 @@ export class AssignmentListeComponent implements OnInit {
     this.getAssignmentsCorrigerFromServicePourScrollInfini();
   }
 
-  openFile(file: string) {
-    window.open(`${environment.apiURL}/images/${file}`, '_blank');
-  }
-
   seeDetails(id: string) {
     this.router.navigate(['/home/assignmentStudent/details', id]);
   }
+
   protected readonly environment = environment;
 }
